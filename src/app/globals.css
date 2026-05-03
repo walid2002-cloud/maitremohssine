@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Segoe UI", "Roboto", "Helvetica Neue", "Arial",
+    "Noto Sans", "sans-serif";
+  --color-gold: #c9a227;
+  --color-gold-bright: #e4c04a;
+  --color-gold-muted: #8a7020;
+  --color-surface: #0a0a0a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #000000;
+  color: #fafafa;
+}
+
+::selection {
+  background-color: rgba(201, 162, 39, 0.35);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5c4a15;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c9a227;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.04); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.02); }
+  60% { transform: scale(1); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(201, 162, 39, 0.25), 0 0 40px rgba(201, 162, 39, 0.08); }
+  50% { box-shadow: 0 0 24px rgba(201, 162, 39, 0.35), 0 0 64px rgba(201, 162, 39, 0.12); }
+}
+
+@keyframes text-glow {
+  0%, 100% { text-shadow: 0 0 8px rgba(201, 162, 39, 0.25); }
+  50% { text-shadow: 0 0 20px rgba(201, 162, 39, 0.45); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.animate-text-glow {
+  animation: text-glow 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 90% 0); transform: translate(-2px, 0); }
+  20% { clip-path: inset(30% 0 40% 0); transform: translate(2px, 0); }
+  40% { clip-path: inset(60% 0 10% 0); transform: translate(-1px, 0); }
+  60% { clip-path: inset(10% 0 70% 0); transform: translate(3px, 0); }
+  80% { clip-path: inset(80% 0 5% 0); transform: translate(-3px, 0); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(80% 0 0 0); transform: translate(2px, 0); }
+  20% { clip-path: inset(10% 0 60% 0); transform: translate(-3px, 0); }
+  40% { clip-path: inset(50% 0 20% 0); transform: translate(1px, 0); }
+  60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 0); }
+  80% { clip-path: inset(0 0 80% 0); transform: translate(3px, 0); }
+}
+
+@keyframes screen-shake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  10% { transform: translate(-1px, 1px) rotate(-0.3deg); }
+  20% { transform: translate(2px, -1px) rotate(0.3deg); }
+  30% { transform: translate(-2px, 0px) rotate(0deg); }
+  40% { transform: translate(1px, 1px) rotate(0.2deg); }
+  50% { transform: translate(-1px, -1px) rotate(-0.2deg); }
+  60% { transform: translate(2px, 0px) rotate(0deg); }
+  70% { transform: translate(0px, 1px) rotate(-0.3deg); }
+  80% { transform: translate(-1px, -1px) rotate(0.3deg); }
+  90% { transform: translate(1px, 0px) rotate(0deg); }
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1; }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.33; }
+}
+
+@keyframes red-pulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.08; }
+}
+
+@keyframes text-distort {
+  0%, 100% { transform: scaleX(1) skewX(0deg); filter: blur(0px); }
+  25% { transform: scaleX(1.02) skewX(-0.5deg); filter: blur(0.5px); }
+  50% { transform: scaleX(0.98) skewX(0.5deg); filter: blur(0px); }
+  75% { transform: scaleX(1.01) skewX(-0.3deg); filter: blur(0.3px); }
+}
+
+.animate-glitch-1 {
+  animation: glitch-1 3s infinite linear alternate-reverse;
+}
+
+.animate-glitch-2 {
+  animation: glitch-2 2.5s infinite linear alternate-reverse;
+}
+
+.animate-screen-shake {
+  animation: screen-shake 0.4s infinite;
+}
+
+.animate-flicker {
+  animation: flicker 4s infinite;
+}
+
+.animate-red-pulse {
+  animation: red-pulse 3s ease-in-out infinite;
+}
+
+.animate-text-distort {
+  animation: text-distort 4s ease-in-out infinite;
+}
+
+.greek-border {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 10px,
+    rgba(201, 162, 39, 0.08) 10px,
+    rgba(201, 162, 39, 0.08) 12px
+  );
+}
