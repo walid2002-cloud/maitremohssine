@@ -91,10 +91,12 @@ export const translations = {
     fr: {
       line1: "Livraison disponible (Casablanca)",
       line2: "Minimum 3 tickets — Zones : Errahma & Bouskoura",
+      ctaDelivery: "Demander la livraison",
     },
     ar: {
       line1: "كاينة خدمة التوصيل (كازا)",
       line2: "خاصك تحجز 3 تيكيات على الأقل — المناطق: الرحمة وبوسكورة",
+      ctaDelivery: "طلب التوصيل",
     },
   },
   intro: {

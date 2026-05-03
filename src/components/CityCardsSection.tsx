@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/context/LanguageContext";
 import { translations } from "@/data/translations";
 import { cities, getWhatsAppLink, formatPhoneToWhatsApp } from "@/data/cities";
+import { CASA_DELIVERY_REQUEST_URL } from "@/data/publicLinks";
 
 export default function CityCardsSection() {
   const { lang, isRtl } = useLang();
@@ -101,14 +102,45 @@ export default function CityCardsSection() {
                 )}
 
                 <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-                  <a
-                    href={getWhatsAppLink(selected.whatsappNumber, selected.city)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex justify-center items-center min-h-[48px] px-6 bg-[#c9a227] text-black font-bold text-sm hover:bg-[#e4c04a] transition-colors"
-                  >
-                    {t.whatsapp}
-                  </a>
+                  {selected.id === "casablanca" ? (
+                    <motion.a
+                      href={CASA_DELIVERY_REQUEST_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative inline-flex w-full sm:w-auto min-h-[52px] items-center justify-center overflow-hidden rounded-lg border border-[#f0dc82]/40 bg-gradient-to-r from-[#b89220] via-[#c9a227] to-[#dfc056] px-8 text-center text-sm font-black text-black shadow-[0_0_0_1px_rgba(0,0,0,0.2)_inset]"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      animate={{
+                        boxShadow: [
+                          "0 0 0 0 rgba(201, 162, 39, 0.35), 0 0 0 0 rgba(201, 162, 39, 0)",
+                          "0 0 28px 4px rgba(201, 162, 39, 0.45), 0 0 0 0 rgba(201, 162, 39, 0)",
+                          "0 0 0 0 rgba(201, 162, 39, 0.35), 0 0 0 0 rgba(201, 162, 39, 0)",
+                        ],
+                      }}
+                      transition={{
+                        boxShadow: { duration: 2.4, repeat: Infinity, ease: "easeInOut" },
+                        scale: { type: "spring", stiffness: 400, damping: 25 },
+                      }}
+                    >
+                      <motion.span
+                        className="pointer-events-none absolute inset-y-0 left-0 w-1/3 skew-x-[-18deg] bg-white/35"
+                        initial={{ x: "-120%" }}
+                        animate={{ x: "420%" }}
+                        transition={{ duration: 2.8, repeat: Infinity, ease: "linear", repeatDelay: 0.6 }}
+                        aria-hidden
+                      />
+                      <span className="relative z-10 tracking-wide">{casaBox.ctaDelivery}</span>
+                    </motion.a>
+                  ) : (
+                    <a
+                      href={getWhatsAppLink(selected.whatsappNumber, selected.city)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex justify-center items-center min-h-[48px] px-6 bg-[#c9a227] text-black font-bold text-sm hover:bg-[#e4c04a] transition-colors"
+                    >
+                      {t.whatsapp}
+                    </a>
+                  )}
                 </div>
 
                 {(selected.id === "casablanca" || selected.id === "mohammedia") && (
