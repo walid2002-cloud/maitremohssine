@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "Révision Régionale 1er Bac — Événement National avec Maître Mohssine",
@@ -51,6 +52,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased bg-black text-white">
+        <GoogleAnalytics />
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
