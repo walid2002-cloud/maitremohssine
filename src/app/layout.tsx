@@ -3,24 +3,37 @@ import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata: Metadata = {
-  title: "Événement National 1 — Révision 1er Bac avec Maître Mohssine",
+  title: "Révision Régionale 1er Bac — Événement National avec Maître Mohssine",
   description:
-    "L'événement national numéro 1 au Maroc : révision pour l'examen régional 1er Bac. Rejoins Maître Mohssine et son équipe dans 9 villes.",
-  keywords: [
-    "révision nationale",
-    "1er bac",
-    "examen régional",
-    "maroc",
-    "maître mohssine",
-    "préparation bac",
-    "événement national",
-  ],
+    "Choisis ta ville, découvre la date, le lieu, les points de vente et réserve ta place pour l’Événement National 1er Bac avec Maître Mohssine.",
+  metadataBase: new URL("https://www.maitremohssine.com"),
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
   openGraph: {
-    title: "Événement National 1 — Révision 1er Bac",
+    title: "Révision Régionale 1er Bac — Événement National avec Maître Mohssine",
     description:
-      "L'événement national numéro 1 au Maroc : révision pour l'examen régional 1er Bac.",
+      "Tournée nationale de révision 1er Bac dans plusieurs villes du Maroc. Réserve ta place facilement.",
+    url: "https://www.maitremohssine.com",
+    siteName: "Maître Mohssine",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Événement National 1er Bac avec Maître Mohssine",
+      },
+    ],
+    locale: "fr_FR",
     type: "website",
-    locale: "fr_MA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Révision Régionale 1er Bac — Événement National avec Maître Mohssine",
+    description:
+      "Choisis ta ville et réserve ta place pour la révision nationale 1er Bac.",
+    images: ["/og-image.jpg"],
   },
 };
 
