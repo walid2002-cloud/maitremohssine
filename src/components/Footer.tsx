@@ -21,7 +21,7 @@ export default function Footer() {
             </div>
             <p className="text-white/45 text-sm leading-relaxed mb-5">{t.desc}</p>
             <a
-              href="https://wa.me/212674413332"
+              href="https://wa.me/212622331464"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2.5 border border-[#c9a227] text-[#c9a227] text-sm font-semibold hover:bg-[#c9a227]/10 transition-colors"

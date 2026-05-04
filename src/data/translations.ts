@@ -96,11 +96,15 @@ export const translations = {
       title: "Tournée nationale",
       subtitle: "Toutes les dates et lieux d’un coup d’œil.",
       openMap: "Carte",
+      salesPoints: "Points de vente",
+      salesPointsHide: "Masquer",
     },
     ar: {
       title: "الجولة الوطنية",
       subtitle: "كل التواريخ والأماكن فنظرة وحدة.",
       openMap: "خريطة",
+      salesPoints: "نقاط البيع",
+      salesPointsHide: "خبي",
     },
   },
   deliveryNotice: {

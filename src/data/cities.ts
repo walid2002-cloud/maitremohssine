@@ -30,7 +30,7 @@ export const cities: CityEvent[] = [
     lieu: "Megarama — Salle 8",
     lieuAr: "ميغاراما — القاعة 8",
     venueMaps: "https://maps.app.goo.gl/fe5Lkk5KKocLub8J6",
-    whatsappNumber: "212674413332",
+    whatsappNumber: "212622331464",
     salesPoints: [
       {
         name: "Centre GSM",
