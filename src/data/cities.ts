@@ -14,6 +14,8 @@ export interface CityEvent {
   dateAr: string;
   lieu: string;
   lieuAr: string;
+  /** Carte Google du lieu de l’événement (salle / hôtel) */
+  venueMaps: string;
   salesPoints: SalesPoint[];
   whatsappNumber: string;
 }
@@ -25,8 +27,9 @@ export const cities: CityEvent[] = [
     cityAr: "الدار البيضاء",
     date: "09 mai",
     dateAr: "09 ماي",
-    lieu: "Salle 8 Megarama",
-    lieuAr: "القاعة 8 ميغاراما",
+    lieu: "Megarama — Salle 8",
+    lieuAr: "ميغاراما — القاعة 8",
+    venueMaps: "https://maps.app.goo.gl/fe5Lkk5KKocLub8J6",
     whatsappNumber: "212674413332",
     salesPoints: [
       {
@@ -74,6 +77,7 @@ export const cities: CityEvent[] = [
     dateAr: "16 ماي",
     lieu: "Megarama",
     lieuAr: "ميغاراما",
+    venueMaps: "https://maps.app.goo.gl/Q9nAZkU7SGpG2YPP8",
     whatsappNumber: "212600000000",
     salesPoints: [],
   },
@@ -83,8 +87,9 @@ export const cities: CityEvent[] = [
     cityAr: "أكادير",
     date: "17 mai",
     dateAr: "17 ماي",
-    lieu: "Salle Bensargaw",
+    lieu: "Salle Bensargao",
     lieuAr: "قاعة بنسركاو",
+    venueMaps: "https://maps.app.goo.gl/kZcdvnGsrn4yWmQV7",
     whatsappNumber: "212600000000",
     salesPoints: [],
   },
@@ -96,6 +101,7 @@ export const cities: CityEvent[] = [
     dateAr: "21 ماي",
     lieu: "Salle Zenith",
     lieuAr: "قاعة زينيت",
+    venueMaps: "https://maps.app.goo.gl/d7qmHixFHNx3QFud8",
     whatsappNumber: "212600000000",
     salesPoints: [],
   },
@@ -105,8 +111,9 @@ export const cities: CityEvent[] = [
     cityAr: "مكناس",
     date: "22 mai",
     dateAr: "22 ماي",
-    lieu: "Théâtre Moumni",
-    lieuAr: "مسرح المومني",
+    lieu: "Théâtre Fkih Moumni",
+    lieuAr: "مسرح الفقيه المومني",
+    venueMaps: "https://maps.app.goo.gl/9dYEKLPEuEJJV3PY7",
     whatsappNumber: "212600000000",
     salesPoints: [],
   },
@@ -116,8 +123,9 @@ export const cities: CityEvent[] = [
     cityAr: "فاس",
     date: "23 mai",
     dateAr: "23 ماي",
-    lieu: "Salle Megarama",
-    lieuAr: "قاعة ميغاراما",
+    lieu: "Megarama",
+    lieuAr: "ميغاراما",
+    venueMaps: "https://maps.app.goo.gl/2HsPW8qkm1raB9Ux7",
     whatsappNumber: "212600000000",
     salesPoints: [],
   },
@@ -129,6 +137,7 @@ export const cities: CityEvent[] = [
     dateAr: "24 ماي",
     lieu: "Salle Boukmakh",
     lieuAr: "قاعة بوكماخ",
+    venueMaps: "https://maps.app.goo.gl/pRJbxmSQhWAJqK7g6",
     whatsappNumber: "212600000000",
     salesPoints: [],
   },
@@ -140,6 +149,7 @@ export const cities: CityEvent[] = [
     dateAr: "25 ماي",
     lieu: "Cinéma Spanol",
     lieuAr: "سينما سبانيول",
+    venueMaps: "https://maps.app.goo.gl/BMKpCRnk6s16JSj68",
     whatsappNumber: "212600000000",
     salesPoints: [],
   },
@@ -151,30 +161,9 @@ export const cities: CityEvent[] = [
     dateAr: "30 ماي",
     lieu: "Hôtel Avanti",
     lieuAr: "فندق أفانتي",
+    venueMaps: "https://maps.app.goo.gl/YRDocsDXShDkjjWC6",
     whatsappNumber: "212600000000",
-    salesPoints: [
-      {
-        name: "Centre GPH",
-        quartier: "La Colline",
-        adresse: "La colline en face Mssala, Mohammedia",
-        telephone: "06 00 00 00 00",
-        maps: "https://share.google/0Vpz0wa0M7n9JkY1v",
-      },
-      {
-        name: "Centre Groupe Superprof Mohssine",
-        quartier: "Boulevard Palestine",
-        adresse: "شارع فلسطين قرب محلات بيع الزليج, Mohammedia",
-        telephone: "06 00 00 00 00",
-        maps: "https://maps.app.goo.gl/3mbsG7h4zD8NMEzZA",
-      },
-      {
-        name: "Centre Eco",
-        quartier: "Benslimane",
-        adresse: "test test",
-        telephone: "06 00 00 00 00",
-        maps: "",
-      },
-    ],
+    salesPoints: [],
   },
 ];
 

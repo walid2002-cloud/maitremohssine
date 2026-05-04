@@ -8,11 +8,11 @@ import { translations } from "@/data/translations";
 export default function Navbar() {
   const { lang, setLang, isRtl } = useLang();
   const t = translations.nav[lang];
+  const brandBadge = translations.simpleHero[lang].badge;
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
     { label: t.home, href: "#accueil" },
-    { label: t.program, href: "#programme" },
     { label: t.salesPoints, href: "#choisis-ta-ville" },
     { label: t.tour, href: "#tournee" },
     { label: t.teachers, href: "#professeurs" },
@@ -30,11 +30,8 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-14 sm:h-16">
           <a href="#accueil" className="flex items-center gap-2 shrink-0">
-            <div className="w-8 h-8 border border-[#c9a227] flex items-center justify-center bg-[#c9a227] text-black font-black text-xs">
-              RN
-            </div>
-            <span className="font-bold text-white text-sm hidden sm:block tracking-tight">
-              {lang === "fr" ? "Révision Nationale" : "مراجعة وطنية"}
+            <span className="px-2 py-1.5 border border-[#e8d089]/40 bg-[#c9a227] text-black font-black text-[8px] sm:text-[10px] tracking-[0.08em] text-center leading-tight max-w-[8.5rem] sm:max-w-none">
+              {brandBadge}
             </span>
           </a>
 

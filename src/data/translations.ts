@@ -4,7 +4,6 @@ export const translations = {
   nav: {
     fr: {
       home: "Accueil",
-      program: "Programme",
       cities: "Villes",
       salesPoints: "Ma ville",
       teachers: "Professeurs",
@@ -15,7 +14,6 @@ export const translations = {
     },
     ar: {
       home: "الرئيسية",
-      program: "البرنامج",
       cities: "المدن",
       salesPoints: "مدينتي",
       teachers: "الأساتذة",
@@ -59,6 +57,17 @@ export const translations = {
       whatsapp: "WhatsApp",
       maps: "Google Maps",
       phone: "Tél.",
+      venueMapCta: "Voir le lieu sur Google Maps",
+      programTagline: "Maître Mohssine – Événement National 🇲🇦",
+      programTicketsDay:
+        "🎫 Tickets disponibles uniquement le jour de l’événement.",
+      programArriveEarly:
+        "⏰ Merci de venir 1 heure avant le début afin de garantir ta place.",
+      programFollowSocial:
+        "📲 Reste branché(e) aux stories 👀 et reels 🔥 de Maître Mohssine pour toutes les infos et les nouveautés 🚀",
+      venueSalesBody:
+        "Les points de vente / la billetterie : le jour de l’événement, sur place au même lieu que la session (voir la carte ci-dessus).",
+      programHeading: "Programme",
     },
     ar: {
       title: "ختار مدينتك",
@@ -71,16 +80,27 @@ export const translations = {
       whatsapp: "واتساب",
       maps: "خرائط غوغل",
       phone: "الهاتف",
+      venueMapCta: "شوف المكان فخرائط غوغل",
+      programTagline: "الأستاذ محسن — الحدث الوطني 🇲🇦",
+      programTicketsDay: "🎫 التيكيات غادي تتباع غير فنفس النهار ديال لحدث.",
+      programArriveEarly: "⏰ تجي ساعة قبل باش تضمن بلاصتك.",
+      programFollowSocial:
+        "📲 تابع الستوريات 👀 والريلز 🔥 ديال الأستاذ محسن باش تلحق آخر الأخبار 🚀",
+      venueSalesBody:
+        "نقاط البيع / التيكيات: فنفس النهار ديال لحدث، فنفس المكان ديال الجلسة (شوف الخريطة لفوق).",
+      programHeading: "البرنامج",
     },
   },
   tourGrid: {
     fr: {
       title: "Tournée nationale",
       subtitle: "Toutes les dates et lieux d’un coup d’œil.",
+      openMap: "Carte",
     },
     ar: {
       title: "الجولة الوطنية",
       subtitle: "كل التواريخ والأماكن فنظرة وحدة.",
+      openMap: "خريطة",
     },
   },
   deliveryNotice: {
@@ -137,80 +157,6 @@ export const translations = {
         "ما عندكش فرصة تغلط.",
       ],
       transition: "ولكن ماشي بوحدك.",
-    },
-  },
-  whyAttend: {
-    fr: {
-      title: "Pourquoi venir ?",
-      subtitle: "Tout ce dont tu as besoin pour réussir ton examen régional",
-      items: [
-        {
-          title: "Révision complète du programme",
-          desc: "Tous les cours et chapitres essentiels revus de manière structurée.",
-          icon: "📚",
-        },
-        {
-          title: "Exercices types examen régional",
-          desc: "Entraîne-toi sur des exercices similaires à ceux de l'examen.",
-          icon: "✍️",
-        },
-        {
-          title: "Méthodes simples pour répondre",
-          desc: "Des techniques claires et efficaces pour chaque matière.",
-          icon: "💡",
-        },
-        {
-          title: "Professeurs expérimentés",
-          desc: "Encadrés par des enseignants reconnus et passionnés.",
-          icon: "🎓",
-        },
-        {
-          title: "Ambiance motivante",
-          desc: "Une énergie collective pour booster ta confiance.",
-          icon: "🔥",
-        },
-        {
-          title: "Places limitées",
-          desc: "Nombre de places restreint pour garantir la qualité.",
-          icon: "🎟️",
-        },
-      ],
-    },
-    ar: {
-      title: "علاش تجي؟",
-      subtitle: "كلشي لي خاصك باش تنجح فالجهوي",
-      items: [
-        {
-          title: "مراجعة كاملة للبرنامج",
-          desc: "كل الدروس والفصول المهمة كيتراجعو بطريقة منظمة.",
-          icon: "📚",
-        },
-        {
-          title: "تمارين بحال ديال الامتحان الجهوي",
-          desc: "تدرب على تمارين قريبة من اللي كيجيو فالامتحان.",
-          icon: "✍️",
-        },
-        {
-          title: "طرق بسيطة للإجابة",
-          desc: "تقنيات واضحة وفعالة لكل مادة.",
-          icon: "💡",
-        },
-        {
-          title: "أساتذة ذوو خبرة",
-          desc: "مرافقة من أساتذة معروفين ومحترفين.",
-          icon: "🎓",
-        },
-        {
-          title: "جو محفز",
-          desc: "طاقة جماعية كتعطيك الثقة فراسك.",
-          icon: "🔥",
-        },
-        {
-          title: "البلايص محدودة",
-          desc: "عدد البلايص قليل باش نضمنو الجودة.",
-          icon: "🎟️",
-        },
-      ],
     },
   },
   teachers: {
@@ -425,15 +371,15 @@ export const translations = {
   },
   footer: {
     fr: {
-      title: "Révision Nationale 1er Bac",
-      desc: "Révision Nationale 1er Bac — Préparation intensive à l'examen régional.",
+      title: "Événement National 1",
+      desc: "Révision pour l’examen régional 1er Bac — tournée nationale avec Maître Mohssine.",
       contact: "Contact WhatsApp",
       cities: "Nos villes",
       rights: "Tous droits réservés.",
     },
     ar: {
-      title: "مراجعة وطنية للأولى باك",
-      desc: "مراجعة وطنية للأولى باك — تحضير قوي للامتحان الجهوي.",
+      title: "الحدث الوطني 1",
+      desc: "مراجعة للامتحان الجهوي — الأولى باك، جولة وطنية مع الأستاذ محسن.",
       contact: "تواصل واتساب",
       cities: "المدن ديالنا",
       rights: "جميع الحقوق محفوظة.",

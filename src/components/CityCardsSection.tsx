@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/context/LanguageContext";
 import { translations } from "@/data/translations";
-import { cities, getWhatsAppLink, formatPhoneToWhatsApp } from "@/data/cities";
+import { cities, formatPhoneToWhatsApp } from "@/data/cities";
 import { CASA_DELIVERY_REQUEST_URL } from "@/data/publicLinks";
 
 export default function CityCardsSection() {
@@ -83,6 +83,20 @@ export default function CityCardsSection() {
                   </span>
                 </div>
 
+                {selected.venueMaps ? (
+                  <div className="mt-4 flex justify-center">
+                    <a
+                      href={selected.venueMaps}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 min-h-[46px] px-5 text-sm font-bold border-2 border-[#c9a227]/55 text-[#c9a227] hover:bg-[#c9a227]/10 rounded-lg transition-colors"
+                    >
+                      <span aria-hidden>📍</span>
+                      {t.venueMapCta}
+                    </a>
+                  </div>
+                ) : null}
+
                 {selected.id === "casablanca" && (
                   <motion.div
                     key="casa-delivery"
@@ -132,14 +146,15 @@ export default function CityCardsSection() {
                       <span className="relative z-10 tracking-wide">{casaBox.ctaDelivery}</span>
                     </motion.a>
                   ) : (
-                    <a
-                      href={getWhatsAppLink(selected.whatsappNumber, selected.city)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex justify-center items-center min-h-[48px] px-6 bg-[#c9a227] text-black font-bold text-sm hover:bg-[#e4c04a] transition-colors"
-                    >
-                      {t.whatsapp}
-                    </a>
+                    <div className="mt-6 max-w-lg mx-auto space-y-3 rounded-xl border border-[#c9a227]/25 bg-black/30 px-4 py-4">
+                      <p className="text-[#c9a227] font-black text-xs uppercase tracking-widest text-center">
+                        {t.programHeading}
+                      </p>
+                      <p className="text-white text-sm font-bold text-center">{t.programTagline}</p>
+                      <p className="text-white/80 text-sm leading-relaxed">{t.programTicketsDay}</p>
+                      <p className="text-white/80 text-sm leading-relaxed">{t.programArriveEarly}</p>
+                      <p className="text-white/80 text-sm leading-relaxed">{t.programFollowSocial}</p>
+                    </div>
                   )}
                 </div>
 
@@ -153,44 +168,50 @@ export default function CityCardsSection() {
                   {t.pointsTitle}
                 </h4>
 
-                {selected.salesPoints.length === 0 ? (
-                  <p className="mt-3 text-white/50 text-sm text-center py-4">{t.soon}</p>
-                ) : (
-                  <ul className="mt-4 space-y-3">
-                    {selected.salesPoints.map((sp, idx) => (
-                      <li
-                        key={idx}
-                        className="border border-[#c9a227]/25 p-4 bg-black/40"
-                      >
-                        <p className="font-bold text-white text-sm">{sp.name}</p>
-                        <p className="text-[#c9a227]/90 text-xs mt-0.5">{sp.quartier}</p>
-                        <p className="text-white/45 text-xs mt-2">{sp.adresse}</p>
-                        <p className="text-white/60 text-xs mt-2">
-                          {t.phone} {sp.telephone}
-                        </p>
-                        <div className="flex flex-wrap gap-2 mt-3">
-                          <a
-                            href={`https://wa.me/${formatPhoneToWhatsApp(sp.telephone)}?text=${encodeURIComponent(`Bonjour, je veux réserver pour ${selected.city}`)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs font-bold px-3 py-2 bg-[#c9a227] text-black hover:bg-[#e4c04a]"
-                          >
-                            {t.whatsapp}
-                          </a>
-                          {sp.maps ? (
+                {selected.id === "casablanca" ? (
+                  selected.salesPoints.length === 0 ? (
+                    <p className="mt-3 text-white/50 text-sm text-center py-4">{t.soon}</p>
+                  ) : (
+                    <ul className="mt-4 space-y-3">
+                      {selected.salesPoints.map((sp, idx) => (
+                        <li
+                          key={idx}
+                          className="border border-[#c9a227]/25 p-4 bg-black/40"
+                        >
+                          <p className="font-bold text-white text-sm">{sp.name}</p>
+                          <p className="text-[#c9a227]/90 text-xs mt-0.5">{sp.quartier}</p>
+                          <p className="text-white/45 text-xs mt-2">{sp.adresse}</p>
+                          <p className="text-white/60 text-xs mt-2">
+                            {t.phone} {sp.telephone}
+                          </p>
+                          <div className="flex flex-wrap gap-2 mt-3">
                             <a
-                              href={sp.maps}
+                              href={`https://wa.me/${formatPhoneToWhatsApp(sp.telephone)}?text=${encodeURIComponent(`Bonjour, je veux réserver pour ${selected.city}`)}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-xs font-bold px-3 py-2 border border-[#c9a227]/60 text-[#c9a227] hover:bg-[#c9a227]/10"
+                              className="text-xs font-bold px-3 py-2 bg-[#c9a227] text-black hover:bg-[#e4c04a]"
                             >
-                              {t.maps}
+                              {t.whatsapp}
                             </a>
-                          ) : null}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+                            {sp.maps ? (
+                              <a
+                                href={sp.maps}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs font-bold px-3 py-2 border border-[#c9a227]/60 text-[#c9a227] hover:bg-[#c9a227]/10"
+                              >
+                                {t.maps}
+                              </a>
+                            ) : null}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  )
+                ) : (
+                  <p className="mt-3 text-white/65 text-sm leading-relaxed text-center max-w-lg mx-auto px-1">
+                    {t.venueSalesBody}
+                  </p>
                 )}
               </div>
             </motion.div>

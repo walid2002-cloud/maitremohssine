@@ -7,6 +7,7 @@ import { cities } from "@/data/cities";
 export default function Footer() {
   const { lang, isRtl } = useLang();
   const t = translations.footer[lang];
+  const brandBadge = translations.simpleHero[lang].badge;
 
   return (
     <footer id="contact" dir={isRtl ? "rtl" : "ltr"} className="border-t border-[#c9a227]/25 bg-black">
@@ -14,10 +15,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 border border-[#c9a227] bg-[#c9a227] text-black font-black text-xs flex items-center justify-center">
-                RN
-              </div>
-              <span className="font-bold text-[#c9a227]">{t.title}</span>
+              <span className="px-2 py-1.5 border border-[#e8d089]/40 bg-[#c9a227] text-black font-black text-[9px] tracking-[0.08em] text-center leading-tight">
+                {brandBadge}
+              </span>
             </div>
             <p className="text-white/45 text-sm leading-relaxed mb-5">{t.desc}</p>
             <a
@@ -54,7 +54,6 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2 text-sm">
               <li><a href="#accueil" className="text-white/45 hover:text-[#c9a227]">{lang === "fr" ? "Accueil" : "الرئيسية"}</a></li>
-              <li><a href="#programme" className="text-white/45 hover:text-[#c9a227]">{lang === "fr" ? "Programme" : "البرنامج"}</a></li>
               <li><a href="#professeurs" className="text-white/45 hover:text-[#c9a227]">{lang === "fr" ? "Professeurs" : "الأساتذة"}</a></li>
               <li><a href="#choisis-ta-ville" className="text-white/45 hover:text-[#c9a227]">{lang === "fr" ? "Réservation" : "الحجز"}</a></li>
               <li><a href="#tournee" className="text-white/45 hover:text-[#c9a227]">{lang === "fr" ? "Tournée" : "الجولة"}</a></li>

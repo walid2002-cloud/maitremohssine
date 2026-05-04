@@ -3,7 +3,7 @@ import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata: Metadata = {
-  title: "Événement National — Révision 1er Bac avec Maître Mohssine",
+  title: "Événement National 1 — Révision 1er Bac avec Maître Mohssine",
   description:
     "L'événement national numéro 1 au Maroc : révision pour l'examen régional 1er Bac. Rejoins Maître Mohssine et son équipe dans 9 villes.",
   keywords: [
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "événement national",
   ],
   openGraph: {
-    title: "Événement National — Révision 1er Bac",
+    title: "Événement National 1 — Révision 1er Bac",
     description:
       "L'événement national numéro 1 au Maroc : révision pour l'examen régional 1er Bac.",
     type: "website",

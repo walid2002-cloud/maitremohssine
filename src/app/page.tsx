@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar";
 import SimpleHero from "@/components/SimpleHero";
 import CityCardsSection from "@/components/CityCardsSection";
 import TourGrid from "@/components/TourGrid";
-import WhyAttend from "@/components/WhyAttend";
 import Teachers from "@/components/Teachers";
 import EventGallery from "@/components/EventGallery";
 import VideoShowcase from "@/components/VideoShowcase";
@@ -18,7 +17,6 @@ export default function Home() {
       <SimpleHero />
       <CityCardsSection />
       <TourGrid />
-      <WhyAttend />
       <Teachers />
       <EventGallery />
       <VideoShowcase />
