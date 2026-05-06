@@ -38,8 +38,8 @@ export const cities: CityEvent[] = [
         sessionId: "casa-09",
         date: "09 mai",
         dateAr: "09 ماي",
-        lieu: "Megarama — Salle 8",
-        lieuAr: "ميغاراما — القاعة 8",
+        lieu: "Salle 8 Megarama",
+        lieuAr: "القاعة 8 — ميغاراما",
         venueMaps: "https://maps.app.goo.gl/fe5Lkk5KKocLub8J6",
         status: "sold_out",
       },
@@ -47,8 +47,8 @@ export const cities: CityEvent[] = [
         sessionId: "casa-27",
         date: "27 mai",
         dateAr: "27 ماي",
-        lieu: "Megarama — Salle 8",
-        lieuAr: "ميغاراما — القاعة 8",
+        lieu: "Salle 8 Megarama",
+        lieuAr: "القاعة 8 — ميغاراما",
         venueMaps: "https://maps.app.goo.gl/fe5Lkk5KKocLub8J6",
         status: "available",
       },
@@ -237,6 +237,69 @@ export const cities: CityEvent[] = [
     salesPoints: [],
   },
 ];
+
+/** Tri des cartes grille : `session.date` est au format FR « 9 mai », « 16 mai », … */
+const FR_MONTH_INDEX: Record<string, number> = {
+  janvier: 0,
+  février: 1,
+  fevrier: 1,
+  mars: 2,
+  avril: 3,
+  mai: 4,
+  juin: 5,
+  juillet: 6,
+  août: 7,
+  aout: 7,
+  septembre: 8,
+  octobre: 9,
+  novembre: 10,
+  décembre: 11,
+  decembre: 11,
+};
+
+const TOUR_GRID_YEAR = 2026;
+
+function tourSessionDateToTime(dateFr: string): number {
+  const parts = dateFr.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const day = parseInt(parts[0] ?? "1", 10);
+  const rawMonth = parts[1] ?? "mai";
+  const monthKey = rawMonth.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const month = FR_MONTH_INDEX[rawMonth] ?? FR_MONTH_INDEX[monthKey];
+  if (month === undefined || Number.isNaN(day)) {
+    return 0;
+  }
+  return new Date(TOUR_GRID_YEAR, month, day).getTime();
+}
+
+/** Une entrée par carte dans les grilles « Choisis ta ville » et « Tournée » (Casablanca = 2 cartes). */
+export type CityGridItem = {
+  gridKey: string;
+  city: CityEvent;
+  session: CitySession;
+};
+
+export function getCityGridItems(citiesList: CityEvent[]): CityGridItem[] {
+  const out: CityGridItem[] = [];
+  for (const city of citiesList) {
+    if (city.id === "casablanca") {
+      for (const s of city.sessions) {
+        out.push({ gridKey: `casablanca-${s.sessionId}`, city, session: s });
+      }
+    } else {
+      const s0 = city.sessions[0];
+      if (s0) {
+        out.push({ gridKey: city.id, city, session: s0 });
+      }
+    }
+  }
+  out.sort((a, b) => {
+    const ta = tourSessionDateToTime(a.session.date);
+    const tb = tourSessionDateToTime(b.session.date);
+    if (ta !== tb) return ta - tb;
+    return a.gridKey.localeCompare(b.gridKey);
+  });
+  return out;
+}
 
 /** Texte des dates sur la petite carte ville (résumé multi-sessions). */
 export function getCityCardDateSummary(city: CityEvent, lang: "fr" | "ar"): string {

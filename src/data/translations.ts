@@ -48,7 +48,8 @@ export const translations = {
   citySection: {
     fr: {
       title: "Choisis ta ville",
-      subtitle: "9 villes — clique sur la tienne pour voir date, lieu et réservation.",
+      subtitle:
+        "Chaque carte est une date — Casablanca a 2 dates — clique pour voir lieu, réservation et points de vente.",
       tapHint: "Appuie pour ouvrir les détails",
       dateLabel: "Date",
       placeLabel: "Lieu",
@@ -71,12 +72,14 @@ export const translations = {
       soldOutBadge: "SOLD OUT",
       soldOutNote: "Cette date est complète.",
       newDateBadge: "Nouvelle date",
-      reserveCasa27: "Réserver pour le 27 mai",
+      reserveButton: "Réserver",
+      completeCasa: "Complet",
       stampSoldOut: "COMPLET",
     },
     ar: {
       title: "ختار مدينتك",
-      subtitle: "9 مدن — كليكي على المدينة ديالك باش تشوف التاريخ والمكان والحجز.",
+      subtitle:
+        "كل كارت هي تاريخ — كازا عندها جوج تواريخ — كليك باش تشوف المكان والحجز ونقاط البيع.",
       tapHint: "كليكي باش تفتح التفاصيل",
       dateLabel: "التاريخ",
       placeLabel: "المكان",
@@ -97,7 +100,8 @@ export const translations = {
       soldOutBadge: "SOLD OUT",
       soldOutNote: "هاد التاريخ عامر.",
       newDateBadge: "تاريخ جديد",
-      reserveCasa27: "حجز ل 27 ماي",
+      reserveButton: "احجز",
+      completeCasa: "مكتمل",
       stampSoldOut: "كامل",
     },
   },
@@ -110,6 +114,8 @@ export const translations = {
       salesPointsHide: "Masquer",
       soldOutTag: "SOLD OUT",
       newDateTag: "Nouvelle date",
+      reserveButton: "Réserver",
+      completeCasa: "Complet",
     },
     ar: {
       title: "الجولة الوطنية",
@@ -119,6 +125,8 @@ export const translations = {
       salesPointsHide: "خبي",
       soldOutTag: "SOLD OUT",
       newDateTag: "تاريخ جديد",
+      reserveButton: "احجز",
+      completeCasa: "مكتمل",
     },
   },
   deliveryNotice: {
@@ -127,13 +135,13 @@ export const translations = {
   },
   casaDeliveryBox: {
     fr: {
-      line1: "Livraison disponible (Casablanca)",
-      line2: "Minimum 3 tickets — Zones : Errahma & Bouskoura",
+      line1: "Minimum 3 tickets — Errahma & Bouskoura",
+      line2: "",
       ctaDelivery: "Demander la livraison",
     },
     ar: {
-      line1: "كاينة خدمة التوصيل (كازا)",
-      line2: "خاصك تحجز 3 تيكيات على الأقل — المناطق: الرحمة وبوسكورة",
+      line1: "على الأقل 3 تيكيات — الرحمة وبوسكورة",
+      line2: "",
       ctaDelivery: "طلب التوصيل",
     },
   },
