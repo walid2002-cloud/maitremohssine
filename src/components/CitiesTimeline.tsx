@@ -3,11 +3,12 @@
 import { motion } from "framer-motion";
 import { useLang } from "@/context/LanguageContext";
 import { translations } from "@/data/translations";
-import { cities, getWhatsAppLink } from "@/data/cities";
+import { cities, getWhatsAppLink, getFirstAvailableSession } from "@/data/cities";
 
 export default function CitiesTimeline() {
   const { lang, isRtl } = useLang();
   const t = translations.citiesTimeline[lang];
+  const tg = translations.tourGrid[lang];
 
   return (
     <section id="villes" dir={isRtl ? "rtl" : "ltr"} className="py-14 sm:py-18 border-b border-[#c9a227]/20 bg-black">
@@ -38,8 +39,17 @@ export default function CitiesTimeline() {
                   <h3 className="font-bold text-white">
                     {lang === "fr" ? city.city : city.cityAr}
                   </h3>
-                  <p className="text-white/45 text-xs mt-0.5">
-                    📅 {lang === "fr" ? city.date : city.dateAr} · 📍 {lang === "fr" ? city.lieu : city.lieuAr}
+                  <p className="text-white/45 text-xs mt-0.5 space-y-1">
+                    {city.sessions.map((s) => (
+                      <span key={s.sessionId} className="block">
+                        📅 {lang === "fr" ? s.date : s.dateAr}
+                        {s.status === "sold_out" ? (
+                          <span className="text-red-400/80"> — {tg.soldOutTag}</span>
+                        ) : null}
+                        {" · "}
+                        📍 {lang === "fr" ? s.lieu : s.lieuAr}
+                      </span>
+                    ))}
                   </p>
                 </div>
               </div>
@@ -54,7 +64,13 @@ export default function CitiesTimeline() {
                   {t.viewSalesPoints}
                 </a>
                 <a
-                  href={getWhatsAppLink(city.whatsappNumber, city.city)}
+                  href={getWhatsAppLink(
+                    city.whatsappNumber,
+                    city.city,
+                    city.id === "casablanca"
+                      ? { bookingDateFr: getFirstAvailableSession(city)?.date ?? "27 mai" }
+                      : undefined
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs font-bold uppercase px-3 py-2 bg-[#c9a227] text-black hover:bg-[#e4c04a]"

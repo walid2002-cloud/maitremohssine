@@ -68,6 +68,11 @@ export const translations = {
       venueSalesBody:
         "Les points de vente / la billetterie : le jour de l’événement, sur place au même lieu que la session (voir la carte ci-dessus).",
       programHeading: "Programme",
+      soldOutBadge: "SOLD OUT",
+      soldOutNote: "Cette date est complète.",
+      newDateBadge: "Nouvelle date",
+      reserveCasa27: "Réserver pour le 27 mai",
+      stampSoldOut: "COMPLET",
     },
     ar: {
       title: "ختار مدينتك",
@@ -89,6 +94,11 @@ export const translations = {
       venueSalesBody:
         "نقاط البيع / التيكيات: فنفس النهار ديال لحدث، فنفس المكان ديال الجلسة (شوف الخريطة لفوق).",
       programHeading: "البرنامج",
+      soldOutBadge: "SOLD OUT",
+      soldOutNote: "هاد التاريخ عامر.",
+      newDateBadge: "تاريخ جديد",
+      reserveCasa27: "حجز ل 27 ماي",
+      stampSoldOut: "كامل",
     },
   },
   tourGrid: {
@@ -98,6 +108,8 @@ export const translations = {
       openMap: "Carte",
       salesPoints: "Points de vente",
       salesPointsHide: "Masquer",
+      soldOutTag: "SOLD OUT",
+      newDateTag: "Nouvelle date",
     },
     ar: {
       title: "الجولة الوطنية",
@@ -105,6 +117,8 @@ export const translations = {
       openMap: "خريطة",
       salesPoints: "نقاط البيع",
       salesPointsHide: "خبي",
+      soldOutTag: "SOLD OUT",
+      newDateTag: "تاريخ جديد",
     },
   },
   deliveryNotice: {

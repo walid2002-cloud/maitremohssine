@@ -2,7 +2,7 @@
 
 import { useLang } from "@/context/LanguageContext";
 import { translations } from "@/data/translations";
-import { cities } from "@/data/cities";
+import { cities, getCityCardDateSummary } from "@/data/cities";
 
 export default function Footer() {
   const { lang, isRtl } = useLang();
@@ -41,7 +41,7 @@ export default function Footer() {
                   <a href="#choisis-ta-ville" className="text-white/45 hover:text-[#c9a227] text-sm transition-colors">
                     {lang === "fr" ? city.city : city.cityAr}
                     <span className="text-white/20 mx-1">—</span>
-                    <span className="text-white/30">{lang === "fr" ? city.date : city.dateAr}</span>
+                    <span className="text-white/30">{getCityCardDateSummary(city, lang)}</span>
                   </a>
                 </li>
               ))}

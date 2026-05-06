@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/context/LanguageContext";
 import { translations } from "@/data/translations";
-import { cities, getWhatsAppLink, formatPhoneToWhatsApp } from "@/data/cities";
+import { cities, getWhatsAppLink, formatPhoneToWhatsApp, getCityCardDateSummary, getFirstAvailableSession } from "@/data/cities";
 
 export default function CitySelector() {
   const { lang, isRtl } = useLang();
@@ -38,7 +38,7 @@ export default function CitySelector() {
           <option value="" className="bg-black text-white/50">{t.placeholder}</option>
           {cities.map((city) => (
             <option key={city.id} value={city.id} className="bg-black text-white">
-              {lang === "fr" ? `${city.city} — ${city.date}` : `${city.cityAr} — ${city.dateAr}`}
+              {lang === "fr" ? `${city.city} — ${getCityCardDateSummary(city, lang)}` : `${city.cityAr} — ${getCityCardDateSummary(city, lang)}`}
             </option>
           ))}
         </select>
@@ -60,9 +60,17 @@ export default function CitySelector() {
                 <h3 className="text-xl font-black text-center mt-1">
                   {lang === "fr" ? selectedCity.city : selectedCity.cityAr}
                 </h3>
-                <div className="mt-3 pt-3 border-t border-black/15 flex flex-wrap justify-center gap-4 text-xs font-semibold">
-                  <span>📅 {lang === "fr" ? selectedCity.date : selectedCity.dateAr}</span>
-                  <span>📍 {lang === "fr" ? selectedCity.lieu : selectedCity.lieuAr}</span>
+                <div className="mt-3 pt-3 border-t border-black/15 flex flex-col gap-2 text-xs font-semibold text-center">
+                  {selectedCity.sessions.map((s) => (
+                    <div key={s.sessionId} className="flex flex-wrap justify-center gap-3">
+                      <span className={s.status === "sold_out" ? "line-through opacity-60" : ""}>
+                        📅 {lang === "fr" ? s.date : s.dateAr}
+                      </span>
+                      <span className={s.status === "sold_out" ? "opacity-50" : ""}>
+                        📍 {lang === "fr" ? s.lieu : s.lieuAr}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -88,7 +96,9 @@ export default function CitySelector() {
                         </p>
                         <div className="flex flex-wrap gap-2 mt-3">
                           <a
-                            href={`https://wa.me/${formatPhoneToWhatsApp(sp.telephone)}?text=${encodeURIComponent(`Bonjour, je veux réserver pour ${selectedCity.city}`)}`}
+                            href={`https://wa.me/${formatPhoneToWhatsApp(sp.telephone)}?text=${encodeURIComponent(
+                              `Bonjour, je veux réserver pour ${selectedCity.city} le ${getFirstAvailableSession(selectedCity)?.date ?? "27 mai"}`
+                            )}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-xs font-bold uppercase px-3 py-2 bg-[#c9a227] text-black hover:bg-[#e4c04a]"
@@ -112,7 +122,13 @@ export default function CitySelector() {
                 )}
 
                 <a
-                  href={getWhatsAppLink(selectedCity.whatsappNumber, selectedCity.city)}
+                  href={getWhatsAppLink(
+                    selectedCity.whatsappNumber,
+                    selectedCity.city,
+                    selectedCity.id === "casablanca"
+                      ? { bookingDateFr: getFirstAvailableSession(selectedCity)?.date ?? "27 mai" }
+                      : undefined
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-5 w-full inline-flex items-center justify-center gap-2 py-3.5 bg-[#c9a227] text-black font-black text-sm uppercase tracking-wide hover:bg-[#e4c04a] transition-colors"

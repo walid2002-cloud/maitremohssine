@@ -4,13 +4,17 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/context/LanguageContext";
 import { translations } from "@/data/translations";
-import { cities, formatPhoneToWhatsApp } from "@/data/cities";
+import { cities, formatPhoneToWhatsApp, getFirstAvailableSession } from "@/data/cities";
 
 export default function TourGrid() {
   const { lang, isRtl } = useLang();
   const t = translations.tourGrid[lang];
   const tc = translations.citySection[lang];
   const [openPvId, setOpenPvId] = useState<string | null>(null);
+
+  const casablancaCity = cities.find((c) => c.id === "casablanca");
+  const casaBookingFr =
+    (casablancaCity ? getFirstAvailableSession(casablancaCity)?.date : undefined) ?? "27 mai";
 
   return (
     <section id="tournee" dir={isRtl ? "rtl" : "ltr"} className="py-12 sm:py-16 border-b border-[#c9a227]/20 bg-black">
@@ -34,27 +38,58 @@ export default function TourGrid() {
                 transition={{ duration: 0.2, delay: i * 0.02 }}
                 className="flex flex-col gap-2 px-4 py-3 border border-[#c9a227]/25 bg-[#0a0a0a] text-sm"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-3">
-                  <span className="font-bold text-white">{lang === "fr" ? city.city : city.cityAr}</span>
-                  <span className="text-[#c9a227] font-semibold shrink-0">
-                    {lang === "fr" ? city.date : city.dateAr}
-                  </span>
-                  <span className="text-white/55 sm:text-right sm:max-w-[50%]">
-                    {lang === "fr" ? city.lieu : city.lieuAr}
-                  </span>
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  {city.venueMaps ? (
-                    <a
-                      href={city.venueMaps}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex w-fit items-center gap-1.5 text-xs font-bold text-[#c9a227] hover:text-[#e4c04a] border border-[#c9a227]/40 rounded px-2.5 py-1.5 hover:bg-[#c9a227]/10 transition-colors"
+                <span className="font-bold text-white">{lang === "fr" ? city.city : city.cityAr}</span>
+
+                <div className="flex flex-col gap-2">
+                  {city.sessions.map((session) => (
+                    <div
+                      key={session.sessionId}
+                      className="flex flex-col gap-1.5 border-b border-white/[0.06] pb-2 last:border-0 last:pb-0"
                     >
-                      <span aria-hidden>📍</span>
-                      {t.openMap}
-                    </a>
-                  ) : null}
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <span
+                          className={
+                            session.status === "sold_out"
+                              ? "text-white/45 line-through decoration-red-500/50"
+                              : "text-[#c9a227] font-semibold"
+                          }
+                        >
+                          {lang === "fr" ? session.date : session.dateAr}
+                        </span>
+                        {session.status === "sold_out" ? (
+                          <span className="text-[10px] font-black uppercase tracking-wide text-red-400/95">
+                            {t.soldOutTag}
+                          </span>
+                        ) : city.id === "casablanca" ? (
+                          <span className="text-[10px] font-black uppercase tracking-wide text-[#c9a227]">
+                            {t.newDateTag}
+                          </span>
+                        ) : null}
+                      </div>
+                      <span className="text-white/50 text-xs sm:text-sm">
+                        {lang === "fr" ? session.lieu : session.lieuAr}
+                      </span>
+                      {session.venueMaps ? (
+                        <a
+                          href={session.venueMaps}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`inline-flex w-fit items-center gap-1.5 text-xs font-bold rounded px-2.5 py-1.5 transition-colors ${
+                            session.status === "sold_out"
+                              ? "pointer-events-none border border-white/10 text-white/25"
+                              : "border border-[#c9a227]/40 text-[#c9a227] hover:bg-[#c9a227]/10"
+                          }`}
+                          tabIndex={session.status === "sold_out" ? -1 : 0}
+                        >
+                          <span aria-hidden>📍</span>
+                          {t.openMap}
+                        </a>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 pt-1">
                   {showPvBtn ? (
                     <button
                       type="button"
@@ -92,7 +127,9 @@ export default function TourGrid() {
                             </p>
                             <div className="flex flex-wrap gap-2 mt-2">
                               <a
-                                href={`https://wa.me/${formatPhoneToWhatsApp(sp.telephone)}?text=${encodeURIComponent(`Bonjour, je veux réserver pour ${city.city}`)}`}
+                                href={`https://wa.me/${formatPhoneToWhatsApp(sp.telephone)}?text=${encodeURIComponent(
+                                  `Bonjour, je veux réserver pour ${city.city} le ${casaBookingFr}`
+                                )}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center px-2.5 py-1.5 bg-[#c9a227] text-black font-bold hover:bg-[#e4c04a] transition-colors"
