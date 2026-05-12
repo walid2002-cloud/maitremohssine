@@ -7,7 +7,6 @@ import { translations } from "@/data/translations";
 import {
   cities,
   formatPhoneToWhatsApp,
-  getFirstAvailableSession,
   getWhatsAppLink,
   getCityGridItems,
 } from "@/data/cities";
@@ -19,10 +18,6 @@ export default function TourGrid() {
   const tc = translations.citySection[lang];
   const casaBox = translations.casaDeliveryBox[lang];
   const [openPvId, setOpenPvId] = useState<string | null>(null);
-
-  const casablancaCity = cities.find((c) => c.id === "casablanca");
-  const casaBookingFr =
-    (casablancaCity ? getFirstAvailableSession(casablancaCity)?.date : undefined) ?? "27 mai";
 
   return (
     <section id="tournee" dir={isRtl ? "rtl" : "ltr"} className="py-12 sm:py-16 border-b border-[#c9a227]/20 bg-black">
@@ -166,7 +161,7 @@ export default function TourGrid() {
                                   <div className="mt-2 flex flex-wrap gap-2">
                                     <a
                                       href={`https://wa.me/${formatPhoneToWhatsApp(sp.telephone)}?text=${encodeURIComponent(
-                                        `Bonjour, je veux réserver pour ${city.city} le ${casaBookingFr}`
+                                        `Bonjour, je veux réserver pour ${city.city} le ${session.date}`
                                       )}`}
                                       target="_blank"
                                       rel="noopener noreferrer"
@@ -189,6 +184,71 @@ export default function TourGrid() {
                               ))}
                             </ul>
                           )}
+                        </motion.div>
+                      ) : null}
+                    </AnimatePresence>
+                  </div>
+                ) : null}
+
+                {!isCasa && !sold && city.salesPoints.length > 0 ? (
+                  <div className="mt-1 flex flex-col gap-2 border-t border-[#c9a227]/15 pt-2">
+                    <button
+                      type="button"
+                      aria-expanded={pvOpen}
+                      onClick={() => setOpenPvId(pvOpen ? null : gridKey)}
+                      className="inline-flex min-h-[40px] w-fit items-center gap-1.5 rounded border border-[#c9a227]/40 px-2.5 py-1.5 text-xs font-bold text-[#c9a227] transition-colors hover:bg-[#c9a227]/10"
+                    >
+                      <span aria-hidden>🏪</span>
+                      {pvOpen ? t.salesPointsHide : t.salesPoints}
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {pvOpen ? (
+                        <motion.div
+                          key="pv-list-other"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.22 }}
+                          className="overflow-hidden border-t border-[#c9a227]/20 pt-2"
+                        >
+                          <ul className="max-h-[min(70vh,28rem)] space-y-2.5 overflow-y-auto pr-1">
+                            {city.salesPoints.map((sp, idx) => (
+                              <li
+                                key={idx}
+                                className="rounded border border-[#c9a227]/20 bg-black/50 px-3 py-2.5 text-xs"
+                              >
+                                <p className="font-bold text-white">{sp.name}</p>
+                                <p className="mt-0.5 text-[#c9a227]/90">{sp.quartier}</p>
+                                <p className="mt-1 leading-snug text-white/45">{sp.adresse}</p>
+                                <p className="mt-1 text-white/55">
+                                  {tc.phone} {sp.telephone}
+                                </p>
+                                <div className="mt-2 flex flex-wrap gap-2">
+                                  <a
+                                    href={`https://wa.me/${formatPhoneToWhatsApp(sp.telephone)}?text=${encodeURIComponent(
+                                      `Bonjour, je veux réserver pour ${city.city} le ${session.date}`
+                                    )}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center bg-[#c9a227] px-2.5 py-1.5 font-bold text-black transition-colors hover:bg-[#e4c04a]"
+                                  >
+                                    {tc.whatsapp}
+                                  </a>
+                                  {sp.maps ? (
+                                    <a
+                                      href={sp.maps}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="inline-flex items-center border border-[#c9a227]/55 px-2.5 py-1.5 font-bold text-[#c9a227] transition-colors hover:bg-[#c9a227]/10"
+                                    >
+                                      {tc.maps}
+                                    </a>
+                                  ) : null}
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
                         </motion.div>
                       ) : null}
                     </AnimatePresence>

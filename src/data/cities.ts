@@ -120,9 +120,9 @@ export const cities: CityEvent[] = [
         sessionId: "agadir-1",
         date: "17 mai",
         dateAr: "17 ماي",
-        lieu: "Salle Bensargao",
-        lieuAr: "قاعة بنسركاو",
-        venueMaps: "https://maps.app.goo.gl/kZcdvnGsrn4yWmQV7",
+        lieu: "Centre Culturel Municipal Ben Sergao",
+        lieuAr: "المركز الثقافي البلدي بن سركاو",
+        venueMaps: "https://maps.app.goo.gl/hHhTm1FJD4vb4gMb7",
         status: "available",
       },
     ],
@@ -226,15 +226,30 @@ export const cities: CityEvent[] = [
     sessions: [
       {
         sessionId: "mohammedia-1",
-        date: "30 mai",
-        dateAr: "30 ماي",
+        date: "29 mai",
+        dateAr: "29 ماي",
         lieu: "Hôtel Avanti",
         lieuAr: "فندق أفانتي",
         venueMaps: "https://maps.app.goo.gl/YRDocsDXShDkjjWC6",
         status: "available",
       },
     ],
-    salesPoints: [],
+    salesPoints: [
+      {
+        name: "Centre GPH",
+        quartier: "La Colline — Mohammedia",
+        adresse: "La colline En face Mssala, Mohammedia",
+        telephone: "06 04 83 18 29",
+        maps: "https://share.google/0Vpz0wa0M7n9JkY1v",
+      },
+      {
+        name: "Centre Groupe Superprof Mohssine",
+        quartier: "Boulevard Palestine — Mohammedia",
+        adresse: "شارع فلسطين قرب محلات بيع الزليج، المحمدية",
+        telephone: "06 54 50 44 55",
+        maps: "https://maps.app.goo.gl/3mbsG7h4zD8NMEzZA",
+      },
+    ],
   },
 ];
 

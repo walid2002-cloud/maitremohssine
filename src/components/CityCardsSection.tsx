@@ -362,9 +362,53 @@ export default function CityCardsSection() {
                     <h4 className="mt-6 text-[#c9a227] text-xs font-black uppercase tracking-widest">
                       {t.pointsTitle}
                     </h4>
-                    <p className="mt-3 text-white/65 text-sm leading-relaxed text-center max-w-lg mx-auto px-1">
-                      {t.venueSalesBody}
-                    </p>
+                    {selected.salesPoints.length > 0 ? (
+                      <ul className="mt-4 space-y-3">
+                        {selected.salesPoints.map((sp, idx) => {
+                          const bookingFr =
+                            getFirstAvailableSession(selected)?.date ?? selected.sessions[0]?.date ?? "";
+                          return (
+                            <li
+                              key={idx}
+                              className="border border-[#c9a227]/25 bg-black/40 p-4"
+                            >
+                              <p className="text-sm font-bold text-white">{sp.name}</p>
+                              <p className="mt-0.5 text-xs text-[#c9a227]/90">{sp.quartier}</p>
+                              <p className="mt-2 text-xs text-white/45">{sp.adresse}</p>
+                              <p className="mt-2 text-xs text-white/60">
+                                {t.phone} {sp.telephone}
+                              </p>
+                              <div className="mt-3 flex flex-wrap gap-2">
+                                <a
+                                  href={`https://wa.me/${formatPhoneToWhatsApp(sp.telephone)}?text=${encodeURIComponent(
+                                    `Bonjour, je veux réserver pour ${selected.city} le ${bookingFr}`
+                                  )}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="bg-[#c9a227] px-3 py-2 text-xs font-bold text-black hover:bg-[#e4c04a]"
+                                >
+                                  {t.whatsapp}
+                                </a>
+                                {sp.maps ? (
+                                  <a
+                                    href={sp.maps}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="border border-[#c9a227]/60 px-3 py-2 text-xs font-bold text-[#c9a227] hover:bg-[#c9a227]/10"
+                                  >
+                                    {t.maps}
+                                  </a>
+                                ) : null}
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    ) : (
+                      <p className="mt-3 text-white/65 text-sm leading-relaxed text-center max-w-lg mx-auto px-1">
+                        {t.venueSalesBody}
+                      </p>
+                    )}
                   </>
                 ) : null}
               </div>
