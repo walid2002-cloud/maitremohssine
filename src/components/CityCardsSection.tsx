@@ -69,14 +69,28 @@ export default function CityCardsSection() {
                 <span className="block text-[#c9a227] text-xs sm:text-sm mt-1 font-medium">
                   {lang === "fr" ? session.date : session.dateAr}
                 </span>
-                {city.id === "casablanca" ? (
-                  <span
-                    className={`mt-1 block text-[9px] sm:text-[10px] font-black uppercase tracking-wide ${
-                      sold ? "text-red-400/95" : "text-[#c9a227]"
-                    }`}
+                {sold ? (
+                  <motion.span
+                    className="mt-1 block text-center text-[9px] sm:text-[10px] font-black uppercase tracking-wide text-red-400/95"
+                    animate={{ opacity: [0.72, 1, 0.72] }}
+                    transition={{ duration: 1.85, repeat: Infinity, ease: "easeInOut" }}
                   >
-                    {sold ? t.soldOutBadge : t.newDateBadge}
-                  </span>
+                    {t.soldOutBadge}
+                  </motion.span>
+                ) : session.newDateHighlight ? (
+                  <motion.span
+                    className="mt-1 block text-center text-[9px] sm:text-[10px] font-black uppercase tracking-[0.14em] text-[#e8d089]"
+                    animate={{
+                      textShadow: [
+                        "0 0 8px rgba(201,162,39,0.3)",
+                        "0 0 20px rgba(201,162,39,0.55)",
+                        "0 0 8px rgba(201,162,39,0.3)",
+                      ],
+                    }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    {t.newDateBadge}
+                  </motion.span>
                 ) : null}
               </motion.button>
             );
@@ -100,7 +114,7 @@ export default function CityCardsSection() {
 
                 <div
                   className={
-                    selected.id === "casablanca"
+                    selected.sessions.length > 1
                       ? "mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4"
                       : "mt-5 space-y-4"
                   }
@@ -108,19 +122,18 @@ export default function CityCardsSection() {
                   {selected.sessions.map((session) => {
                     const sold = session.status === "sold_out";
                     const casa = selected.id === "casablanca";
+                    const newHi = session.newDateHighlight === true;
 
                     return (
                       <div
                         key={session.sessionId}
                         className={`relative overflow-hidden rounded-xl border px-4 pb-4 pt-4 ${
-                          sold && casa
-                            ? "border-[#c9a227]/35 bg-[#0a0a0a]"
-                            : sold
-                              ? "border-red-500/35 bg-black/55"
-                              : "border-[#c9a227]/40 bg-[#0d0d0d]"
+                          sold
+                            ? "border-[#c9a227]/35 bg-[#0a0a0a] shadow-[0_0_40px_rgba(220,38,38,0.14)]"
+                            : "border-[#c9a227]/40 bg-[#0d0d0d]"
                         }`}
                       >
-                        {sold && casa ? (
+                        {sold ? (
                           <div
                             className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl"
                             aria-hidden
@@ -131,7 +144,7 @@ export default function CityCardsSection() {
                           </div>
                         ) : null}
 
-                        {sold && casa ? (
+                        {sold ? (
                           <motion.div
                             className="absolute top-3 end-3 z-20"
                             initial={{ scale: 0.35, rotate: -24, opacity: 0 }}
@@ -139,29 +152,35 @@ export default function CityCardsSection() {
                             transition={{ type: "spring", stiffness: 420, damping: 19, mass: 0.85 }}
                           >
                             <motion.span
-                              className="inline-flex items-center rounded-sm border-2 border-red-500/95 bg-gradient-to-br from-red-950 to-red-900 px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-red-50 shadow-[0_6px_22px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.15)] ring-1 ring-red-400/25"
-                              animate={{ scale: [1, 1.055, 1] }}
-                              transition={{ duration: 2.3, repeat: Infinity, ease: "easeInOut" }}
+                              className="inline-flex items-center rounded-sm border-2 border-red-500/95 bg-gradient-to-br from-red-950 to-red-900 px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-red-50 shadow-[0_0_22px_rgba(220,38,38,0.45),0_6px_22px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.15)] ring-1 ring-red-400/40"
+                              animate={{ scale: [1, 1.07, 1], boxShadow: [
+                                "0 0 18px rgba(220,38,38,0.35),0 6px 22px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.15)",
+                                "0 0 28px rgba(248,113,113,0.45),0 6px 22px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.15)",
+                                "0 0 18px rgba(220,38,38,0.35),0 6px 22px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.15)",
+                              ] }}
+                              transition={{ duration: 2.1, repeat: Infinity, ease: "easeInOut" }}
                             >
                               {t.soldOutBadge}
                             </motion.span>
                           </motion.div>
                         ) : null}
 
-                        <div className={`relative z-10 ${sold && casa ? "pe-24 sm:pe-28" : ""}`}>
+                        <div className={`relative z-10 ${sold ? "pe-24 sm:pe-28" : ""}`}>
                           <div className="mb-3 flex min-h-[2rem] flex-wrap items-start gap-2">
-                            {!sold && casa ? (
-                              <span className="inline-flex rounded px-2.5 py-1 text-[10px] font-black uppercase tracking-wide bg-[#c9a227] text-black shadow-sm">
-                                {t.newDateBadge}
-                              </span>
-                            ) : null}
-                            {sold && !casa ? (
+                            {!sold && newHi ? (
                               <motion.span
-                                className="inline-flex rounded px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.2em] bg-gradient-to-r from-red-950 to-red-800 text-red-50 border border-red-400/45 shadow-[0_0_12px_rgba(220,38,38,0.25)]"
-                                animate={{ opacity: [0.82, 1, 0.82] }}
-                                transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                                className="inline-flex rounded px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.16em] bg-gradient-to-r from-[#7a6218] via-[#c9a227] to-[#dfc056] text-black shadow-[0_0_22px_rgba(201,162,39,0.35)] ring-1 ring-[#f0dc82]/40"
+                                animate={{
+                                  boxShadow: [
+                                    "0 0 12px rgba(201,162,39,0.25)",
+                                    "0 0 26px rgba(201,162,39,0.5)",
+                                    "0 0 12px rgba(201,162,39,0.25)",
+                                  ],
+                                  scale: [1, 1.02, 1],
+                                }}
+                                transition={{ duration: 2.3, repeat: Infinity, ease: "easeInOut" }}
                               >
-                                {t.soldOutBadge}
+                                {t.newDateBadge}
                               </motion.span>
                             ) : null}
                           </div>
@@ -195,7 +214,7 @@ export default function CityCardsSection() {
                             </div>
                           ) : null}
 
-                          {sold && casa ? (
+                          {sold ? (
                             <>
                               <p className="relative z-10 mt-3 text-sm text-red-300/90">{t.soldOutNote}</p>
                               <button
@@ -206,10 +225,6 @@ export default function CityCardsSection() {
                                 {t.completeCasa}
                               </button>
                             </>
-                          ) : null}
-
-                          {sold && !casa ? (
-                            <p className="relative z-10 mt-3 text-sm text-red-300/90">{t.soldOutNote}</p>
                           ) : null}
 
                           {!sold && casa && (
@@ -332,6 +347,36 @@ export default function CityCardsSection() {
                               </div>
                             </div>
                           )}
+
+                          {!sold && newHi && !casa ? (
+                            <motion.div
+                              className="relative z-10 mt-4"
+                              initial={{ opacity: 0, y: 6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.35 }}
+                            >
+                              <motion.a
+                                href={getWhatsAppLink(selected.whatsappNumber, selected.city, {
+                                  bookingDateFr: session.date,
+                                })}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex min-h-[50px] w-full items-center justify-center rounded-lg border-2 border-[#c9a227] bg-[#c9a227]/10 px-6 text-xs font-black text-[#c9a227] hover:bg-[#c9a227]/20 sm:text-sm"
+                                whileHover={{ scale: 1.01 }}
+                                whileTap={{ scale: 0.99 }}
+                                animate={{
+                                  boxShadow: [
+                                    "0 0 0 0 rgba(201,162,39,0.2)",
+                                    "0 0 20px rgba(201,162,39,0.25)",
+                                    "0 0 0 0 rgba(201,162,39,0.2)",
+                                  ],
+                                }}
+                                transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                              >
+                                {t.reserveButton}
+                              </motion.a>
+                            </motion.div>
+                          ) : null}
 
                         </div>
                       </div>

@@ -16,6 +16,8 @@ export interface CitySession {
   lieuAr: string;
   venueMaps: string;
   status: CitySessionStatus;
+  /** Badge « NOUVELLE DATE » + animation dorée (ex. Casa 27, Marrakech 30, Rabat 31). */
+  newDateHighlight?: boolean;
 }
 
 export interface CityEvent {
@@ -51,6 +53,7 @@ export const cities: CityEvent[] = [
         lieuAr: "القاعة 8 — ميغاراما",
         venueMaps: "https://maps.app.goo.gl/fe5Lkk5KKocLub8J6",
         status: "available",
+        newDateHighlight: true,
       },
     ],
     salesPoints: [
@@ -99,13 +102,24 @@ export const cities: CityEvent[] = [
     whatsappNumber: "212600000000",
     sessions: [
       {
-        sessionId: "marrakech-1",
+        sessionId: "marrakech-16",
         date: "16 mai",
         dateAr: "16 ماي",
         lieu: "Megarama",
         lieuAr: "ميغاراما",
         venueMaps: "https://maps.app.goo.gl/Q9nAZkU7SGpG2YPP8",
+        status: "sold_out",
+      },
+      {
+        sessionId: "marrakech-30",
+        date: "30 mai",
+        dateAr: "30 ماي",
+        lieu: "École ISGA — 11h sbah",
+        lieuAr: "مدرسة ISGA — 11h صباح",
+        venueMaps:
+          "https://www.google.com/maps/search/?api=1&query=ISGA+Marrakech+Hivernage",
         status: "available",
+        newDateHighlight: true,
       },
     ],
     salesPoints: [],
@@ -123,7 +137,7 @@ export const cities: CityEvent[] = [
         lieu: "Centre Culturel Municipal Ben Sergao",
         lieuAr: "المركز الثقافي البلدي بن سركاو",
         venueMaps: "https://maps.app.goo.gl/hHhTm1FJD4vb4gMb7",
-        status: "available",
+        status: "sold_out",
       },
     ],
     salesPoints: [],
@@ -135,13 +149,22 @@ export const cities: CityEvent[] = [
     whatsappNumber: "212600000000",
     sessions: [
       {
-        sessionId: "rabat-1",
+        sessionId: "rabat-21-matin",
         date: "21 mai",
         dateAr: "21 ماي",
-        lieu: "Salle Zenith",
-        lieuAr: "قاعة زينيت",
+        lieu: "Salle Zenith — 9h à 15h",
+        lieuAr: "قاعة زينيت — 9h → 15h",
         venueMaps: "https://maps.app.goo.gl/d7qmHixFHNx3QFud8",
-        status: "available",
+        status: "sold_out",
+      },
+      {
+        sessionId: "rabat-21-soir",
+        date: "21 mai",
+        dateAr: "21 ماي",
+        lieu: "Salle Zenith — 15h à 21h",
+        lieuAr: "قاعة زينيت — 15h → 21h",
+        venueMaps: "https://maps.app.goo.gl/d7qmHixFHNx3QFud8",
+        status: "sold_out",
       },
     ],
     salesPoints: [],
@@ -296,15 +319,12 @@ export type CityGridItem = {
 export function getCityGridItems(citiesList: CityEvent[]): CityGridItem[] {
   const out: CityGridItem[] = [];
   for (const city of citiesList) {
-    if (city.id === "casablanca") {
-      for (const s of city.sessions) {
-        out.push({ gridKey: `casablanca-${s.sessionId}`, city, session: s });
-      }
-    } else {
-      const s0 = city.sessions[0];
-      if (s0) {
-        out.push({ gridKey: city.id, city, session: s0 });
-      }
+    for (const s of city.sessions) {
+      out.push({
+        gridKey: `${city.id}-${s.sessionId}`,
+        city,
+        session: s,
+      });
     }
   }
   out.sort((a, b) => {
@@ -318,12 +338,12 @@ export function getCityGridItems(citiesList: CityEvent[]): CityGridItem[] {
 
 /** Texte des dates sur la petite carte ville (résumé multi-sessions). */
 export function getCityCardDateSummary(city: CityEvent, lang: "fr" | "ar"): string {
-  if (city.sessions.length === 1) {
-    return lang === "fr" ? city.sessions[0].date : city.sessions[0].dateAr;
+  const dates = city.sessions.map((s) => (lang === "fr" ? s.date : s.dateAr));
+  const unique = [...new Set(dates)];
+  if (unique.length === 1) {
+    return unique[0];
   }
-  return lang === "fr"
-    ? city.sessions.map((s) => s.date).join(" · ")
-    : city.sessions.map((s) => s.dateAr).join(" · ");
+  return unique.join(" · ");
 }
 
 /** Première session disponible (ex. message WhatsApp avec la bonne date). */

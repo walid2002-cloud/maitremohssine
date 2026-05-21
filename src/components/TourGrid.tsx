@@ -41,30 +41,64 @@ export default function TourGrid() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.2, delay: i * 0.02 }}
-                className="flex flex-col gap-2 px-4 py-3 border border-[#c9a227]/25 bg-[#0a0a0a] text-sm"
+                className={`relative flex flex-col gap-2 overflow-hidden px-4 py-3 text-sm ${
+                  sold
+                    ? "border border-[#c9a227]/35 bg-[#0a0a0a] shadow-[0_0_36px_rgba(220,38,38,0.16)]"
+                    : "border border-[#c9a227]/25 bg-[#0a0a0a]"
+                }`}
               >
-                <span className="font-bold text-white">{lang === "fr" ? city.city : city.cityAr}</span>
+                {sold ? (
+                  <motion.div
+                    className="absolute end-2 top-2 z-10"
+                    initial={{ scale: 0.4, rotate: -20, opacity: 0 }}
+                    animate={{ scale: 1, rotate: -8, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 440, damping: 18 }}
+                  >
+                    <motion.span
+                      className="inline-flex items-center rounded-sm border-2 border-red-500/95 bg-gradient-to-br from-red-950 to-red-900 px-2 py-1 text-[9px] font-black uppercase tracking-[0.18em] text-red-50 shadow-[0_0_20px_rgba(220,38,38,0.4)] ring-1 ring-red-400/35"
+                      animate={{
+                        scale: [1, 1.06, 1],
+                        boxShadow: [
+                          "0 0 12px rgba(220,38,38,0.35)",
+                          "0 0 24px rgba(248,113,113,0.45)",
+                          "0 0 12px rgba(220,38,38,0.35)",
+                        ],
+                      }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      {t.soldOutTag}
+                    </motion.span>
+                  </motion.div>
+                ) : null}
+
+                <span className={`font-bold text-white ${sold ? "pe-14 sm:pe-16" : ""}`}>
+                  {lang === "fr" ? city.city : city.cityAr}
+                </span>
 
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                   <span
                     className={
-                      sold && !isCasa
-                        ? "text-white/45 line-through decoration-red-500/50"
-                        : sold
-                          ? "font-semibold text-white/90"
-                          : "font-semibold text-[#c9a227]"
+                      sold
+                        ? "font-semibold text-white/95"
+                        : "font-semibold text-[#c9a227]"
                     }
                   >
                     {lang === "fr" ? session.date : session.dateAr}
                   </span>
-                  {sold ? (
-                    <span className="text-[10px] font-black uppercase tracking-wide text-red-400/95">
-                      {t.soldOutTag}
-                    </span>
-                  ) : isCasa ? (
-                    <span className="text-[10px] font-black uppercase tracking-wide text-[#c9a227]">
+                  {!sold && session.newDateHighlight ? (
+                    <motion.span
+                      className="text-[10px] font-black uppercase tracking-[0.12em] text-[#e8d089]"
+                      animate={{
+                        textShadow: [
+                          "0 0 6px rgba(201,162,39,0.35)",
+                          "0 0 16px rgba(201,162,39,0.6)",
+                          "0 0 6px rgba(201,162,39,0.35)",
+                        ],
+                      }}
+                      transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                    >
                       {t.newDateTag}
-                    </span>
+                    </motion.span>
                   ) : null}
                 </div>
 
@@ -88,7 +122,7 @@ export default function TourGrid() {
                   </a>
                 ) : null}
 
-                {isCasa && sold ? (
+                {sold ? (
                   <button
                     type="button"
                     disabled
@@ -188,6 +222,36 @@ export default function TourGrid() {
                       ) : null}
                     </AnimatePresence>
                   </div>
+                ) : null}
+
+                {!isCasa && !sold && session.newDateHighlight ? (
+                  <motion.div
+                    className="mt-1 border-t border-[#c9a227]/15 pt-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.35 }}
+                  >
+                    <motion.a
+                      href={getWhatsAppLink(city.whatsappNumber, city.city, {
+                        bookingDateFr: session.date,
+                      })}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-[44px] w-full items-center justify-center rounded-lg border-2 border-[#c9a227] bg-[#c9a227]/10 px-3 text-xs font-black text-[#c9a227] hover:bg-[#c9a227]/20"
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
+                      animate={{
+                        boxShadow: [
+                          "0 0 0 0 rgba(201,162,39,0.15)",
+                          "0 0 18px rgba(201,162,39,0.28)",
+                          "0 0 0 0 rgba(201,162,39,0.15)",
+                        ],
+                      }}
+                      transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      {t.reserveButton}
+                    </motion.a>
+                  </motion.div>
                 ) : null}
 
                 {!isCasa && !sold && city.salesPoints.length > 0 ? (

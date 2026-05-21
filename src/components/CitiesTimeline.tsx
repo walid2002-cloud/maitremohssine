@@ -22,7 +22,9 @@ export default function CitiesTimeline() {
         </div>
 
         <div className="space-y-3 max-w-3xl mx-auto">
-          {cities.map((city, index) => (
+          {cities.map((city, index) => {
+            const firstAvail = getFirstAvailableSession(city);
+            return (
             <motion.div
               key={city.id}
               initial={{ opacity: 0, x: isRtl ? 12 : -12 }}
@@ -46,6 +48,9 @@ export default function CitiesTimeline() {
                         {s.status === "sold_out" ? (
                           <span className="text-red-400/80"> — {tg.soldOutTag}</span>
                         ) : null}
+                        {s.newDateHighlight ? (
+                          <span className="text-[#c9a227]/90"> — {tg.newDateTag}</span>
+                        ) : null}
                         {" · "}
                         📍 {lang === "fr" ? s.lieu : s.lieuAr}
                       </span>
@@ -67,9 +72,7 @@ export default function CitiesTimeline() {
                   href={getWhatsAppLink(
                     city.whatsappNumber,
                     city.city,
-                    city.id === "casablanca"
-                      ? { bookingDateFr: getFirstAvailableSession(city)?.date ?? "27 mai" }
-                      : undefined
+                    firstAvail ? { bookingDateFr: firstAvail.date } : undefined
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -79,7 +82,8 @@ export default function CitiesTimeline() {
                 </a>
               </div>
             </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

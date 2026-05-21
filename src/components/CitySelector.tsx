@@ -9,6 +9,7 @@ import { cities, getWhatsAppLink, formatPhoneToWhatsApp, getCityCardDateSummary,
 export default function CitySelector() {
   const { lang, isRtl } = useLang();
   const t = translations.citySelector[lang];
+  const tc = translations.citySection[lang];
   const notice = translations.deliveryNotice[lang];
   const [selectedId, setSelectedId] = useState<string>("");
 
@@ -65,6 +66,9 @@ export default function CitySelector() {
                     <div key={s.sessionId} className="flex flex-wrap justify-center gap-3">
                       <span className={s.status === "sold_out" ? "line-through opacity-60" : ""}>
                         📅 {lang === "fr" ? s.date : s.dateAr}
+                        {s.newDateHighlight ? (
+                          <span className="text-[#c9a227] font-bold"> — {tc.newDateBadge}</span>
+                        ) : null}
                       </span>
                       <span className={s.status === "sold_out" ? "opacity-50" : ""}>
                         📍 {lang === "fr" ? s.lieu : s.lieuAr}
@@ -125,8 +129,8 @@ export default function CitySelector() {
                   href={getWhatsAppLink(
                     selectedCity.whatsappNumber,
                     selectedCity.city,
-                    selectedCity.id === "casablanca"
-                      ? { bookingDateFr: getFirstAvailableSession(selectedCity)?.date ?? "27 mai" }
+                    getFirstAvailableSession(selectedCity)
+                      ? { bookingDateFr: getFirstAvailableSession(selectedCity)!.date }
                       : undefined
                   )}
                   target="_blank"
