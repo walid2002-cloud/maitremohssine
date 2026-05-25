@@ -28,7 +28,7 @@ export default function CityCardsSection() {
 
   const selected = cities.find((c) => c.id === openId);
   const casaAvailable = selected?.id === "casablanca" ? getFirstAvailableSession(selected) : undefined;
-  const casaBookingDateFr = casaAvailable?.date ?? "27 mai";
+  const casaBookingDateFr = casaAvailable?.date ?? "28 mai";
 
   return (
     <section

@@ -16,7 +16,7 @@ export interface CitySession {
   lieuAr: string;
   venueMaps: string;
   status: CitySessionStatus;
-  /** Badge « NOUVELLE DATE » + animation dorée (ex. Casa 27, Marrakech 30, Rabat 31). */
+  /** Badge « NOUVELLE DATE » + animation dorée (ex. Casa 28, Marrakech 30). */
   newDateHighlight?: boolean;
 }
 
@@ -46,9 +46,9 @@ export const cities: CityEvent[] = [
         status: "sold_out",
       },
       {
-        sessionId: "casa-27",
-        date: "27 mai",
-        dateAr: "27 ماي",
+        sessionId: "casa-28",
+        date: "28 mai",
+        dateAr: "28 ماي",
         lieu: "Salle 8 Megarama",
         lieuAr: "القاعة 8 — ميغاراما",
         venueMaps: "https://maps.app.goo.gl/fe5Lkk5KKocLub8J6",
@@ -182,7 +182,7 @@ export const cities: CityEvent[] = [
         lieu: "Théâtre Fkih Moumni",
         lieuAr: "مسرح الفقيه المومني",
         venueMaps: "https://maps.app.goo.gl/9dYEKLPEuEJJV3PY7",
-        status: "available",
+        status: "sold_out",
       },
     ],
     salesPoints: [],
@@ -200,7 +200,7 @@ export const cities: CityEvent[] = [
         lieu: "Megarama",
         lieuAr: "ميغاراما",
         venueMaps: "https://maps.app.goo.gl/2HsPW8qkm1raB9Ux7",
-        status: "available",
+        status: "sold_out",
       },
     ],
     salesPoints: [],
@@ -218,7 +218,7 @@ export const cities: CityEvent[] = [
         lieu: "Salle Boukmakh",
         lieuAr: "قاعة بوكماخ",
         venueMaps: "https://maps.app.goo.gl/pRJbxmSQhWAJqK7g6",
-        status: "available",
+        status: "sold_out",
       },
     ],
     salesPoints: [],
@@ -236,7 +236,7 @@ export const cities: CityEvent[] = [
         lieu: "Cinéma Spanol",
         lieuAr: "سينما سبانيول",
         venueMaps: "https://maps.app.goo.gl/BMKpCRnk6s16JSj68",
-        status: "available",
+        status: "sold_out",
       },
     ],
     salesPoints: [],

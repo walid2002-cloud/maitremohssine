@@ -101,7 +101,7 @@ export default function CitySelector() {
                         <div className="flex flex-wrap gap-2 mt-3">
                           <a
                             href={`https://wa.me/${formatPhoneToWhatsApp(sp.telephone)}?text=${encodeURIComponent(
-                              `Bonjour, je veux réserver pour ${selectedCity.city} le ${getFirstAvailableSession(selectedCity)?.date ?? "27 mai"}`
+                              `Bonjour, je veux réserver pour ${selectedCity.city} le ${getFirstAvailableSession(selectedCity)?.date ?? "28 mai"}`
                             )}`}
                             target="_blank"
                             rel="noopener noreferrer"
