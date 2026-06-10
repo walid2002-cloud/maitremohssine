@@ -109,6 +109,20 @@ export const translations = {
       notifyCta: "بغيت نعرف على النسخة الجاية",
     },
   },
+  agency: {
+    fr: {
+      badge: "Partenaire officiel",
+      title: "Organisation & accompagnement",
+      text: "Cette édition de l'Événement National 1 a été accompagnée par With Khalil Agency, agence spécialisée dans la gestion, la communication et la mise en valeur d'événements.",
+      footerCredit: "Gestion & accompagnement événementiel par With Khalil Agency",
+    },
+    ar: {
+      badge: "شريك رسمي",
+      title: "التنظيم والمرافقة",
+      text: "هاد النسخة ديال الحدث الوطني 1 تزادت بمرافقة With Khalil Agency، وكالة متخصصة فالتدبير والتواصل وإبراز الأحداث.",
+      footerCredit: "تدبير ومرافقة الأحداث من طرف With Khalil Agency",
+    },
+  },
   nextEdition: {
     fr: {
       title: "Rendez-vous l'année prochaine",

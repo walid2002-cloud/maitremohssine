@@ -1,13 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { useLang } from "@/context/LanguageContext";
 import { translations } from "@/data/translations";
 import { tourMoments } from "@/data/souvenirs";
 import { getNextEditionWhatsAppLink } from "@/data/publicLinks";
 
+const AGENCY_LOGO = "/images/with-khalil-agency-logo.png";
+
 export default function Footer() {
   const { lang, isRtl } = useLang();
   const t = translations.footer[lang];
+  const agency = translations.agency[lang];
   const brandBadge = translations.simpleHero[lang].badge;
 
   return (
@@ -66,9 +70,25 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-[#c9a227]/15">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col items-center gap-3 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col items-center gap-4 text-center">
           <p className="text-sm text-[#e8d089]/70 max-w-lg">{t.closing}</p>
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 w-full text-xs text-white/35">
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-1">
+            <div className="relative h-8 w-24 shrink-0 opacity-90">
+              <Image
+                src={AGENCY_LOGO}
+                alt="With Khalil Agency"
+                fill
+                className="object-contain object-center"
+                sizes="96px"
+              />
+            </div>
+            <p className="text-[11px] sm:text-xs text-white/40 max-w-md leading-relaxed">
+              {agency.footerCredit}
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 w-full text-xs text-white/35 pt-2 border-t border-[#c9a227]/10">
             <p>© {new Date().getFullYear()} {t.title}. {t.rights}</p>
             <p>{lang === "fr" ? "Maître Mohssine" : "الأستاذ محسن"}</p>
           </div>
