@@ -1,25 +1,29 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-import SimpleHero from "@/components/SimpleHero";
-import BestMomentsSection from "@/components/BestMomentsSection";
-import TourSuccessSection from "@/components/TourSuccessSection";
-import NextEditionSection from "@/components/NextEditionSection";
-import AgencySection from "@/components/AgencySection";
-import Footer from "@/components/Footer";
-import AmbientMusic from "@/components/AmbientMusic";
+import HomeHero from "@/components/home/HomeHero";
+import StatsSection from "@/components/home/StatsSection";
+import AboutSection from "@/components/home/AboutSection";
+import YoutubeSection from "@/components/home/YoutubeSection";
+import MapSection from "@/components/home/MapSection";
+import CoursesSection from "@/components/home/CoursesSection";
+import WhySection from "@/components/home/WhySection";
+import TestimonialsSection from "@/components/home/TestimonialsSection";
+import EventTeaserSection from "@/components/home/EventTeaserSection";
+import CtaSection from "@/components/home/CtaSection";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white souvenir-page">
-      <Navbar />
-      <SimpleHero />
-      <BestMomentsSection />
-      <TourSuccessSection />
-      <NextEditionSection />
-      <AgencySection />
-      <Footer />
-      <AmbientMusic />
+    <main>
+      <HomeHero />
+      <StatsSection />
+      <AboutSection />
+      <YoutubeSection />
+      <MapSection />
+      <CoursesSection />
+      <WhySection />
+      <TestimonialsSection />
+      <EventTeaserSection />
+      <CtaSection />
     </main>
   );
 }

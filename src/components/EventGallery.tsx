@@ -20,7 +20,7 @@ export default function EventGallery() {
 
   return (
     <>
-      <section dir={isRtl ? "rtl" : "ltr"} className="py-14 sm:py-18 border-b border-[#c9a227]/20 bg-black">
+      <section id="galerie" dir={isRtl ? "rtl" : "ltr"} className="py-14 sm:py-18 border-b border-[#c9a227]/20 bg-black">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
             <span className="text-[#c9a227] text-xs font-bold uppercase tracking-[0.25em]">{t.badge}</span>

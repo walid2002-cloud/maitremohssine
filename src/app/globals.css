@@ -1,16 +1,48 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", "Segoe UI", "Roboto", "Helvetica Neue", "Arial",
-    "Noto Sans", "sans-serif";
+  --font-sans: var(--font-inter), "Inter", "Segoe UI", "Roboto", "Helvetica Neue",
+    "Arial", "Noto Sans", "sans-serif";
   --color-gold: #c9a227;
   --color-gold-bright: #e4c04a;
   --color-gold-muted: #8a7020;
   --color-surface: #0a0a0a;
 }
 
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.25s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}
+
+@keyframes yt-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.yt-marquee-track {
+  animation: yt-marquee 48s linear infinite;
+  will-change: transform;
+}
+
+.yt-marquee-track.is-paused {
+  animation-play-state: paused;
+}
+
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
