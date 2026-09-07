@@ -9,6 +9,7 @@ import CoursesSection from "@/components/home/CoursesSection";
 import WhySection from "@/components/home/WhySection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import EventTeaserSection from "@/components/home/EventTeaserSection";
+import WhatsAppChannelSection from "@/components/home/WhatsAppChannelSection";
 import CtaSection from "@/components/home/CtaSection";
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
       <WhySection />
       <TestimonialsSection />
       <EventTeaserSection />
+      <WhatsAppChannelSection />
       <CtaSection />
     </main>
   );

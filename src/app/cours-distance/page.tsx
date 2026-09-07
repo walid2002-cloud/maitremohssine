@@ -5,11 +5,13 @@ import { useCopy } from "@/context/LanguageContext";
 import FaqList from "@/components/FaqList";
 import DemoVideo from "@/components/media/DemoVideo";
 import LeadForm from "@/components/forms/LeadForm";
+import WhatsAppChannelLink from "@/components/whatsapp/WhatsAppChannelLink";
 
 const receiveIcons = [Lock, Video, Radio, FileText, Headphones];
 
 export default function RemotePage() {
   const t = useCopy().remotePage;
+  const wc = useCopy().whatsappChannel;
 
   return (
     <main className="pt-28 pb-10">
@@ -45,6 +47,22 @@ export default function RemotePage() {
               </div>
             );
           })}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-4 py-4 sm:px-6">
+        <div className="rounded-[2rem] border border-gold/20 bg-white/[0.03] p-6 text-center sm:p-8">
+          <h2 className="text-xl font-black sm:text-2xl">{wc.remoteTitle}</h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-white/55 sm:text-base">
+            {wc.remoteText}
+          </p>
+          <WhatsAppChannelLink
+            source="cours_distance"
+            variant="outline"
+            className="mt-5 h-11 px-5 text-sm"
+          >
+            {wc.remoteCta}
+          </WhatsAppChannelLink>
         </div>
       </section>
 

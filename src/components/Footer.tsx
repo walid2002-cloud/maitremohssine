@@ -6,6 +6,7 @@ import { useCopy, useLang } from "@/context/LanguageContext";
 import { translations } from "@/data/translations";
 import { PHONE_DISPLAY, PHONE_TEL, YOUTUBE_CHANNEL } from "@/data/centers";
 import { getEnrollWhatsAppLink } from "@/data/publicLinks";
+import WhatsAppChannelLink from "@/components/whatsapp/WhatsAppChannelLink";
 
 const AGENCY_LOGO = "/images/with-khalil-agency-logo.png";
 
@@ -14,6 +15,7 @@ export default function Footer() {
   const { lang, isRtl } = useLang();
   const t = copy.footer;
   const n = copy.nav;
+  const wc = copy.whatsappChannel;
   const agency = translations.agency[lang];
 
   return (
@@ -43,6 +45,11 @@ export default function Footer() {
               <a href={getEnrollWhatsAppLink()} target="_blank" rel="noopener noreferrer" className="hover:text-gold">
                 WhatsApp
               </a>
+            </li>
+            <li>
+              <WhatsAppChannelLink source="footer" variant="text" className="hover:text-gold">
+                {wc.footer}
+              </WhatsAppChannelLink>
             </li>
             <li>
               <a href={`tel:${PHONE_TEL}`} className="hover:text-gold">{PHONE_DISPLAY}</a>

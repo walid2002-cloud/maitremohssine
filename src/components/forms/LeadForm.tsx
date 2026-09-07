@@ -4,8 +4,8 @@ import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "r
 import { Button } from "@/components/ui/button";
 import { useCopy } from "@/context/LanguageContext";
 import {
-  detectPageLabel,
   detectTrafficSource,
+  LEAD_FORM_EMPTY_VALUES,
   submitLead,
   type LeadKind,
 } from "@/lib/leads";
@@ -20,19 +20,14 @@ type Props = {
   onSuccess?: () => void;
 };
 
+type FormStatus = "idle" | "loading" | "ok" | "error";
+
 export default function LeadForm({ kind, compact, onSuccess }: Props) {
   const t = useCopy().form;
   const openedAt = useRef(Date.now());
-  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
-  const [values, setValues] = useState({
-    nom: "",
-    prenom: "",
-    whatsapp: "",
-    filiere: "",
-    ville: "",
-    motivation: "",
-    company: "",
-  });
+  const submitting = useRef(false);
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [values, setValues] = useState({ ...LEAD_FORM_EMPTY_VALUES });
 
   useEffect(() => {
     openedAt.current = Date.now();
@@ -46,30 +41,38 @@ export default function LeadForm({ kind, compact, onSuccess }: Props) {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (status === "loading") return;
+    if (submitting.current || status === "loading") return;
+
+    submitting.current = true;
     setStatus("loading");
+
     try {
       const result = await submitLead({
         kind,
-        nom: values.nom,
-        prenom: values.prenom,
-        whatsapp: values.whatsapp,
-        filiere: values.filiere,
-        ville: values.ville,
-        motivation: kind === "challenger" ? values.motivation : "",
+        nom: values.nom.trim(),
+        prenom: values.prenom.trim(),
+        telephone: values.whatsapp.trim(),
+        filiere: values.filiere.trim(),
+        ville: values.ville.trim(),
+        motivation: kind === "challenger" ? values.motivation.trim() : "",
         source: detectTrafficSource(),
-        page: detectPageLabel(window.location.pathname),
+        page: window.location.pathname,
         company: values.company,
         formOpenedAt: openedAt.current,
       });
+
       if (!result.ok) {
         setStatus("error");
         return;
       }
+
+      setValues({ ...LEAD_FORM_EMPTY_VALUES });
       setStatus("ok");
       onSuccess?.();
     } catch {
       setStatus("error");
+    } finally {
+      submitting.current = false;
     }
   };
 
@@ -123,7 +126,7 @@ export default function LeadForm({ kind, compact, onSuccess }: Props) {
         placeholder={t.ville}
         value={values.ville}
         onChange={set("ville")}
-        className={cn(fieldClass, kind === "challenger" ? "sm:col-span-2" : "sm:col-span-2")}
+        className={cn(fieldClass, "sm:col-span-2")}
       />
       {kind === "challenger" && (
         <textarea
@@ -136,7 +139,9 @@ export default function LeadForm({ kind, compact, onSuccess }: Props) {
         />
       )}
       {status === "error" && (
-        <p className="text-sm text-red-300 sm:col-span-2">{t.error}</p>
+        <p className="text-sm text-red-300 sm:col-span-2" role="alert">
+          {t.error}
+        </p>
       )}
       <div className="sm:col-span-2">
         <Button type="submit" disabled={status === "loading"} className="w-full sm:w-auto">

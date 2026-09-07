@@ -39,3 +39,9 @@ export function trackEvent(
   if (!gtag) return;
   gtag("event", eventName, eventParams ?? {});
 }
+
+export type WhatsAppChannelSource = "home" | "cours_distance" | "footer" | "header";
+
+export function trackWhatsAppChannelClick(source: WhatsAppChannelSource): void {
+  trackEvent("whatsapp_channel_click", { page_source: source });
+}

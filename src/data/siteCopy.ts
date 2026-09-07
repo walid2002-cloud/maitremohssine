@@ -12,6 +12,7 @@ export const siteCopy = {
       gallery: "Galerie",
       contact: "Contact",
       whatsapp: "WhatsApp",
+      whatsappChannel: "Chaîne WhatsApp",
       langSwitch: "الدارجة",
     },
     hero: {
@@ -163,6 +164,20 @@ export const siteCopy = {
       contact: "Contact",
       rights: "Tous droits réservés.",
     },
+    whatsappChannel: {
+      badge: "Chaîne officielle",
+      ariaLabel: "Suivre la chaîne WhatsApp officielle de Maître Mohssine",
+      homeTitle: "Rejoins la chaîne WhatsApp officielle",
+      homeText:
+        "Reçois les cours, vidéos, conseils, lives, annonces et nouveautés de Maître Mohssine directement sur WhatsApp.",
+      homeCta: "Suivre la chaîne WhatsApp",
+      scan: "Scanne avec ton téléphone",
+      remoteTitle: "Reste connecté avec Maître Mohssine",
+      remoteText:
+        "Suis aussi la chaîne WhatsApp officielle pour recevoir les nouveautés, rappels, vidéos et annonces.",
+      remoteCta: "Suivre la chaîne",
+      footer: "Chaîne WhatsApp officielle",
+    },
     centersPage: {
       badge: "Réseau",
       title: "Nos centres",
@@ -259,7 +274,7 @@ export const siteCopy = {
       submit: "Envoyer",
       submitChallenger: "Envoyer ma candidature",
       sending: "Envoi…",
-      success: "Merci ! Notre équipe vous contactera bientôt sur WhatsApp.",
+      success: "Merci ! Vos informations ont bien été envoyées.",
       error: "Impossible d’envoyer pour le moment. Réessayez.",
     },
     popup: {
@@ -306,6 +321,7 @@ export const siteCopy = {
       gallery: "الألبوم",
       contact: "اتصل بنا",
       whatsapp: "واتساب",
+      whatsappChannel: "قناة واتساب",
       langSwitch: "FR",
     },
     hero: {
@@ -453,6 +469,20 @@ export const siteCopy = {
       contact: "اتصال",
       rights: "جميع الحقوق محفوظة.",
     },
+    whatsappChannel: {
+      badge: "القناة الرسمية",
+      ariaLabel: "تابع القناة الرسمية ديال الأستاذ محسن على واتساب",
+      homeTitle: "انضم للقناة الرسمية على واتساب",
+      homeText:
+        "توصل بالدروس، الفيديوهات، النصائح، اللايفات، الإعلانات والجديد ديال الأستاذ محسن مباشرة على واتساب.",
+      homeCta: "تابع القناة على واتساب",
+      scan: "سكانيه بالتليفون",
+      remoteTitle: "ابقى متصل مع الأستاذ محسن",
+      remoteText:
+        "تابع القناة الرسمية على واتساب باش توصلك الجديد، التذكيرات، الفيديوهات والإعلانات.",
+      remoteCta: "تابع القناة",
+      footer: "القناة الرسمية على واتساب",
+    },
     centersPage: {
       badge: "الشبكة",
       title: "المراكز ديالنا",
@@ -548,7 +578,7 @@ export const siteCopy = {
       submit: "صيفط",
       submitChallenger: "صيفط الترشيح",
       sending: "كيسالي…",
-      success: "شكرا! الفريق غادي يتصل بيك قريب على واتساب.",
+      success: "شكرا! معلوماتك وصلات بنجاح.",
       error: "ما قدرناش نصيفطو دابا. عاود من بعد.",
     },
     popup: {

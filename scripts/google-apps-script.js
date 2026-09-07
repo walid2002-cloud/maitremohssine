@@ -1,33 +1,45 @@
 /**
- * Google Apps Script — coller ce fichier dans Extensions > Apps Script du Sheet :
- * https://docs.google.com/spreadsheets/d/1OldWnzvjJDflRoxLV3g1B0S6m4jM7QLbk9ff7jBH2LA/edit
+ * Google Apps Script — Maître Mohssine leads
  *
- * Étapes :
- * 1. Ouvrir le Google Sheet
- * 2. Extensions → Apps Script
- * 3. Coller ce code, Enregistrer
- * 4. Déployer → Nouveau déploiement → Type : Application Web
- * 5. Exécuter en tant que : Moi
- * 6. Qui a accès : Tous (Anyone) — nécessaire pour que le serveur du site puisse POST
- * 7. Copier l’URL du déploiement
- * 8. Dans le projet, créer `.env.local` :
- *    GOOGLE_SHEETS_WEBAPP_URL="https://script.google.com/macros/s/XXXX/exec"
- * 9. Redéployer le site (Vercel : ajouter la même variable d’environnement)
+ * Sheet ID : 1OldWnzvjJDflRoxLV3g1B0S6m4jM7QLbk9ff7jBH2LA
+ * Déploiement : docs/GOOGLE_SHEETS_SETUP.md
  *
- * Colonnes attendues (ligne 1) :
- * Date | Heure | Nom | Prénom | Numéro WhatsApp | Filière / Niveau | Ville | Source | Page | Motivation
+ * Colonnes :
+ * Date | Heure | Nom | Prénom | Numéro WhatsApp | Filière / Niveau | Ville | Page | Source
  */
+
+var SPREADSHEET_ID = "1OldWnzvjJDflRoxLV3g1B0S6m4jM7QLbk9ff7jBH2LA";
+
+var HEADERS = [
+  "Date",
+  "Heure",
+  "Nom",
+  "Prénom",
+  "Numéro WhatsApp",
+  "Filière / Niveau",
+  "Ville",
+  "Page",
+  "Source",
+];
 
 function doPost(e) {
   try {
-    if (!e || !e.postData || !e.postData.contents) {
+    var data = parseBody_(e);
+    if (!data) {
       return json_({ ok: false, error: "empty_body" });
     }
 
-    var data = JSON.parse(e.postData.contents);
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = ss.getSheets()[0];
+    var nom = str_(data.nom);
+    var prenom = str_(data.prenom);
+    var telephone = str_(data.telephone) || str_(data.whatsapp);
+    var filiere = str_(data.filiere);
+    var ville = str_(data.ville);
 
+    if (!nom || !prenom || !telephone || !filiere || !ville) {
+      return json_({ ok: false, error: "missing_fields" });
+    }
+
+    var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheets()[0];
     ensureHeader_(sheet);
 
     var now = new Date();
@@ -38,14 +50,13 @@ function doPost(e) {
     sheet.appendRow([
       dateStr,
       timeStr,
-      str_(data.nom),
-      str_(data.prenom),
-      str_(data.whatsapp),
-      str_(data.filiere),
-      str_(data.ville),
-      str_(data.source) || "Site direct",
-      str_(data.page),
-      str_(data.motivation),
+      nom,
+      prenom,
+      telephone,
+      filiere,
+      ville,
+      str_(data.page) || "/",
+      str_(data.source) || "direct",
     ]);
 
     return json_({ ok: true });
@@ -55,7 +66,43 @@ function doPost(e) {
 }
 
 function doGet() {
-  return json_({ ok: true, message: "Maître Mohssine leads endpoint" });
+  return json_({
+    ok: true,
+    message: "Maître Mohssine leads endpoint",
+    spreadsheetId: SPREADSHEET_ID,
+  });
+}
+
+function parseBody_(e) {
+  if (!e) return null;
+
+  if (e.postData && e.postData.contents) {
+    var type = (e.postData.type || "").toLowerCase();
+    if (type.indexOf("application/json") !== -1) {
+      return JSON.parse(e.postData.contents);
+    }
+    if (type.indexOf("application/x-www-form-urlencoded") !== -1) {
+      return parseQuery_(e.postData.contents);
+    }
+  }
+
+  if (e.parameter && Object.keys(e.parameter).length > 0) {
+    return e.parameter;
+  }
+
+  return null;
+}
+
+function parseQuery_(raw) {
+  var out = {};
+  raw.split("&").forEach(function (pair) {
+    var idx = pair.indexOf("=");
+    if (idx === -1) return;
+    var key = decodeURIComponent(pair.slice(0, idx).replace(/\+/g, " "));
+    var val = decodeURIComponent(pair.slice(idx + 1).replace(/\+/g, " "));
+    out[key] = val;
+  });
+  return out;
 }
 
 function str_(value) {
@@ -64,21 +111,10 @@ function str_(value) {
 }
 
 function ensureHeader_(sheet) {
-  var header = [
-    "Date",
-    "Heure",
-    "Nom",
-    "Prénom",
-    "Numéro WhatsApp",
-    "Filière / Niveau",
-    "Ville",
-    "Source",
-    "Page",
-    "Motivation",
-  ];
-  var first = sheet.getRange(1, 1, 1, header.length).getValues()[0];
+  var first = sheet.getRange(1, 1, 1, HEADERS.length).getValues()[0];
   if (!first[0]) {
-    sheet.getRange(1, 1, 1, header.length).setValues([header]);
+    sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
+    sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight("bold");
   }
 }
 

@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useCopy, useLang } from "@/context/LanguageContext";
 import { getEnrollWhatsAppLink } from "@/data/publicLinks";
+import WhatsAppChannelLink from "@/components/whatsapp/WhatsAppChannelLink";
 import { cn } from "@/lib/utils";
 
 function linkActive(pathname: string, href: string) {
@@ -83,7 +84,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             type="button"
             onClick={() => setLang(lang === "fr" ? "ar" : "fr")}
@@ -91,6 +92,13 @@ export default function Navbar() {
           >
             {t.langSwitch}
           </button>
+          <WhatsAppChannelLink
+            source="header"
+            variant="outline"
+            className="hidden h-9 px-3 text-[11px] md:inline-flex lg:text-[12px]"
+          >
+            {t.whatsappChannel}
+          </WhatsAppChannelLink>
           <a
             href={getEnrollWhatsAppLink()}
             target="_blank"
@@ -131,6 +139,13 @@ export default function Navbar() {
                   {l.label}
                 </Link>
               ))}
+              <WhatsAppChannelLink
+                source="header"
+                variant="outline"
+                className="mt-2 w-full px-4 py-2.5 text-sm lg:hidden"
+              >
+                {t.whatsappChannel}
+              </WhatsAppChannelLink>
               <a
                 href={getEnrollWhatsAppLink()}
                 target="_blank"
