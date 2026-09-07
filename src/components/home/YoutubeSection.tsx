@@ -7,12 +7,12 @@ import { Play } from "lucide-react";
 import { useCopy } from "@/context/LanguageContext";
 import { usePrefersReducedMotion } from "@/hooks/useMedia";
 import { YOUTUBE_SUBSCRIBE } from "@/data/centers";
-import { youtubeVideos, ytEmbed, ytThumb, type YtVideo } from "@/data/youtube";
+import { recommendedVideos, ytEmbed, ytThumb, type YtVideo } from "@/data/youtube";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 async function loadCatalog(): Promise<{ videos: YtVideo[] }> {
-  return { videos: youtubeVideos };
+  return { videos: recommendedVideos };
 }
 
 function VideoCard({
@@ -36,6 +36,9 @@ function VideoCard({
         </span>
       </div>
       <p className="p-3 text-sm font-medium text-white/80">{video.title}</p>
+      {video.theme ? (
+        <p className="px-3 pb-3 text-[11px] uppercase tracking-widest text-gold/80">{video.theme}</p>
+      ) : null}
     </button>
   );
 }
@@ -50,7 +53,7 @@ export default function YoutubeSection() {
     queryFn: loadCatalog,
   });
 
-  const videos = data?.videos ?? youtubeVideos;
+  const videos = data?.videos ?? recommendedVideos;
   const loop = useMemo(() => [...videos, ...videos], [videos]);
   const paused = hovering || Boolean(active) || reduced;
 

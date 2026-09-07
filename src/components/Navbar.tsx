@@ -4,10 +4,16 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useCopy, useLang } from "@/context/LanguageContext";
 import { getEnrollWhatsAppLink } from "@/data/publicLinks";
 import { cn } from "@/lib/utils";
+
+function linkActive(pathname: string, href: string) {
+  const path = href.split("#")[0];
+  if (!path || path === "/") return href === "/" && pathname === "/";
+  return pathname === path;
+}
 
 export default function Navbar() {
   const copy = useCopy();
@@ -28,12 +34,17 @@ export default function Navbar() {
     setOpen(false);
   }, [pathname]);
 
-  const links = [
-    { href: "/", label: t.home },
-    { href: "/#apropos", label: t.about },
+  const desktopLinks = [
     { href: "/centres", label: t.centers },
     { href: "/cours-distance", label: t.remote },
+    { href: "/meilleur-challenger", label: t.challenger },
     { href: "/evenement", label: t.event },
+  ];
+
+  const mobileLinks = [
+    { href: "/", label: t.home },
+    { href: "/#apropos", label: t.about },
+    ...desktopLinks,
     { href: "/evenement#galerie", label: t.gallery },
     { href: "/#contact", label: t.contact },
   ];
@@ -45,23 +56,26 @@ export default function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         scrolled
-          ? "border-b border-gold/20 bg-black/55 shadow-[0_10px_40px_rgba(0,0,0,0.35)] backdrop-blur-2xl"
+          ? "border-b border-white/10 bg-black/70 backdrop-blur-xl"
           : "bg-transparent"
       )}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-[4.25rem] sm:px-6" dir={isRtl ? "rtl" : "ltr"}>
-        <Link href="/" className="shrink-0 rounded-md bg-gold px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] text-black">
-          Maître Mohssine
+      <nav
+        className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between gap-6 px-4 sm:px-6"
+        dir={isRtl ? "rtl" : "ltr"}
+      >
+        <Link href="/" className="shrink-0 text-[13px] font-semibold tracking-[0.22em] text-gold">
+          MAÎTRE MOHSSINE
         </Link>
 
-        <div className="hidden items-center gap-0.5 xl:flex">
-          {links.map((l) => (
+        <div className="hidden items-center gap-8 lg:flex">
+          {desktopLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               className={cn(
-                "rounded-full px-3 py-2 text-xs font-medium uppercase tracking-wide text-white/55 transition hover:text-gold",
-                (l.href.split("#")[0] === "/" ? pathname === "/" : pathname === l.href.split("#")[0]) && "text-gold"
+                "text-[13px] text-white/55 transition hover:text-white",
+                linkActive(pathname, l.href) && "text-gold"
               )}
             >
               {l.label}
@@ -69,11 +83,11 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
           <button
             type="button"
             onClick={() => setLang(lang === "fr" ? "ar" : "fr")}
-            className="rounded-full border border-gold/40 px-3 py-1.5 text-xs font-bold uppercase text-gold hover:bg-gold/10"
+            className="text-[12px] text-white/40 transition hover:text-gold"
           >
             {t.langSwitch}
           </button>
@@ -81,13 +95,17 @@ export default function Navbar() {
             href={getEnrollWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden items-center gap-1.5 rounded-full bg-gold px-4 py-2 text-xs font-bold uppercase text-black sm:inline-flex"
+            className="hidden rounded-full bg-gold px-4 py-2 text-[12px] font-semibold text-black sm:inline-flex"
           >
-            <MessageCircle className="h-3.5 w-3.5" />
             {t.whatsapp}
           </a>
-          <button type="button" className="xl:hidden p-2 text-gold" onClick={() => setOpen((v) => !v)} aria-label="Menu">
-            {open ? <X /> : <Menu />}
+          <button
+            type="button"
+            className="p-1.5 text-white/70 lg:hidden"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Menu"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </nav>
@@ -98,18 +116,29 @@ export default function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-gold/15 bg-black/90 backdrop-blur-xl xl:hidden"
+            className="overflow-hidden border-t border-white/10 bg-black/95 backdrop-blur-xl lg:hidden"
           >
-            <div className="space-y-1 px-4 py-4">
-              {links.map((l) => (
+            <div className="space-y-0.5 px-4 py-4">
+              {mobileLinks.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="block rounded-lg px-2 py-2.5 text-sm text-white/70 hover:text-gold"
+                  className={cn(
+                    "block rounded-lg px-2 py-2.5 text-sm text-white/65 hover:text-gold",
+                    linkActive(pathname, l.href) && "text-gold"
+                  )}
                 >
                   {l.label}
                 </Link>
               ))}
+              <a
+                href={getEnrollWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 block rounded-full bg-gold px-4 py-2.5 text-center text-sm font-semibold text-black sm:hidden"
+              >
+                {t.whatsapp}
+              </a>
             </div>
           </motion.div>
         )}

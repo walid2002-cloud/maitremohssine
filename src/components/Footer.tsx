@@ -31,6 +31,7 @@ export default function Footer() {
             <li><Link href="/" className="hover:text-gold">{n.home}</Link></li>
             <li><Link href="/centres" className="hover:text-gold">{n.centers}</Link></li>
             <li><Link href="/cours-distance" className="hover:text-gold">{n.remote}</Link></li>
+            <li><Link href="/meilleur-challenger" className="hover:text-gold">{n.challenger}</Link></li>
             <li><Link href="/evenement" className="hover:text-gold">{n.event}</Link></li>
             <li><Link href="/evenement#galerie" className="hover:text-gold">{n.gallery}</Link></li>
           </ul>
