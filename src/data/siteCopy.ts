@@ -193,6 +193,27 @@ export const siteCopy = {
         "Préparez vos examens avec des cours structurés, des explications détaillées, des exercices et des examens corrigés.",
       offer: "🔥 Offre spéciale : 600 DH au lieu de 1200 DH",
       heroCta: "Je veux m’inscrire",
+      promoModal: {
+        cohortLabel: "SUPER PROMO • 1 BAC",
+        titleLine1: "Prépare ton régional",
+        titleLine2: "avec Maître Mohssine",
+        subtitle:
+          "Tout ce qu’il te faut pour préparer ton régional, où que tu sois au Maroc.",
+        perks: [
+          "Français — Pack année",
+          "Maths — 1er semestre",
+          "Matières littéraires — 2ème semestre",
+        ],
+        pricePast: "800 DH",
+        priceCurrent: "600 DH",
+        pricePromoLabel: "OFFRE PROMO",
+        ctaOffer: "Découvrir l’offre",
+        ctaWhatsApp: "S’inscrire sur WhatsApp",
+        skip: "Continuer sans s’inscrire",
+        close: "Fermer",
+        imageAlt:
+          "Super Promo 1 Bac — pack année Français, 1er semestre Maths, 2e semestre matières littéraires, 600 DH, cours à distance Maître Mohssine",
+      },
       demo: {
         title: "Découvrez l’offre en vidéo 🎥",
         intro: "Regardez la vidéo pour découvrir :",
@@ -228,6 +249,9 @@ export const siteCopy = {
       },
       testimonials: {
         title: "Ils nous font confiance ❤️",
+        subtitle:
+          "Des résultats, des progrès et surtout des élèves fiers de leur travail.",
+        viewAll: "Voir tous les témoignages",
       },
       faqVideo: {
         title: "Questions fréquentes",
@@ -505,6 +529,25 @@ export const siteCopy = {
         "حضّر الامتحانات بدروس منظمة، شروحات مفصلة، تمارين وامتحانات مصححة.",
       offer: "🔥 عرض خاص : 600 درهم بدل 1200 درهم",
       heroCta: "بغيت نسجل",
+      promoModal: {
+        cohortLabel: "SUPER PROMO • 1 BAC",
+        titleLine1: "حضّر الجهوي",
+        titleLine2: "مع الأستاذ محسن",
+        subtitle: "كل ما تحتاج باش تحضّر الجهوي، من أي بلاصة فالمغرب.",
+        perks: [
+          "Français — باك السنة",
+          "Maths — الدورة الأولى",
+          "المواد الأدبية — الدورة الثانية",
+        ],
+        pricePast: "800 درهم",
+        priceCurrent: "600 درهم",
+        pricePromoLabel: "OFFRE PROMO",
+        ctaOffer: "اكتشف العرض",
+        ctaWhatsApp: "نسجل على واتساب",
+        skip: "كمل بلا تسجيل",
+        close: "سد",
+        imageAlt: "Super Promo 1 Bac — Français، Maths، المواد الأدبية 600 درهم، دروس عن بعد Maître Mohssine",
+      },
       demo: {
         title: "اكتشف العرض بالفيديو 🎥",
         intro: "شوف الفيديو باش تعرف :",
@@ -540,6 +583,8 @@ export const siteCopy = {
       },
       testimonials: {
         title: "كيتثقوا فينا ❤️",
+        subtitle: "نتائج، تقدم، وفوق كلشي تلاميذ فخورين بخدمتهم.",
+        viewAll: "شوف جميع التشجيعات",
       },
       faqVideo: {
         title: "أسئلة متكررة",

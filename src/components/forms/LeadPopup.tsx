@@ -1,28 +1,37 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import LeadForm from "@/components/forms/LeadForm";
 import { useCopy } from "@/context/LanguageContext";
 import { POPUP_HIDE_MS, POPUP_STORAGE_KEY } from "@/lib/leads";
 
+/** Pas de popup inscription global sur Cours à distance (popup promo dédié + formulaire page). */
+const LEAD_POPUP_DISABLED_PATHS = ["/cours-distance"] as const;
+
 export default function LeadPopup() {
   const t = useCopy().popup;
+  const pathname = usePathname();
+  const disabled = LEAD_POPUP_DISABLED_PATHS.some((p) => pathname === p);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    if (disabled) return;
     const until = Number(localStorage.getItem(POPUP_STORAGE_KEY) || 0);
     if (until && Date.now() < until) return;
 
     const timer = window.setTimeout(() => setOpen(true), 3000);
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [disabled]);
 
   const dismiss = () => {
     localStorage.setItem(POPUP_STORAGE_KEY, String(Date.now() + POPUP_HIDE_MS));
     setOpen(false);
   };
+
+  if (disabled) return null;
 
   return (
     <AnimatePresence>

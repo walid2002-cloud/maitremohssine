@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCopy } from "@/context/LanguageContext";
+import RemoteCoursePromoModal from "@/components/cours-distance/RemoteCoursePromoModal";
 import RemoteEnrollmentSection from "@/components/cours-distance/RemoteEnrollmentSection";
 import RemoteVideoFaq from "@/components/cours-distance/RemoteVideoFaq";
 import RemotePromoFlyer from "@/components/cours-distance/RemotePromoFlyer";
@@ -14,6 +15,7 @@ export default function RemotePage() {
 
   return (
     <main className="pt-28 pb-10">
+      <RemoteCoursePromoModal />
       <section className="mx-auto max-w-4xl px-4 text-center sm:px-6">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold sm:tracking-[0.25em]">
           {t.badge}

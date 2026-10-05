@@ -16,6 +16,13 @@ export const WHATSAPP_NUMBER = "212622331464";
 /** Ligne WhatsApp dédiée aux inscriptions cours à distance (flyer promo). */
 export const REMOTE_COURSE_WHATSAPP = "212708457935";
 
+const REMOTE_COURSE_PROMO_WHATSAPP_MESSAGE =
+  "Bonjour, je souhaite profiter de la PROMO des cours à distance de Maître Mohssine.";
+
+export function getRemoteCoursePromoWhatsAppLink(): string {
+  return `https://wa.me/${REMOTE_COURSE_WHATSAPP}?text=${encodeURIComponent(REMOTE_COURSE_PROMO_WHATSAPP_MESSAGE)}`;
+}
+
 export function getRemoteCourseEnrollmentWhatsApp(data: {
   fullName: string;
   telephone: string;
