@@ -228,20 +228,6 @@ export const siteCopy = {
       },
       testimonials: {
         title: "Ils nous font confiance ❤️",
-        items: [
-          {
-            text: "Des cours clairs, des profs au top et un vrai suivi. J’ai gagné en confiance avant les examens.",
-            name: "Salma, Casablanca",
-          },
-          {
-            text: "Les vidéos et les examens corrigés m’ont beaucoup aidé. L’équipe répond vite sur WhatsApp.",
-            name: "Yassine, Rabat",
-          },
-          {
-            text: "Organisation au top, contenu complet et accessible depuis le téléphone. Je recommande.",
-            name: "Imane, Marrakech",
-          },
-        ],
       },
       faqVideo: {
         title: "Questions fréquentes",
@@ -554,20 +540,6 @@ export const siteCopy = {
       },
       testimonials: {
         title: "كيتثقوا فينا ❤️",
-        items: [
-          {
-            text: "دروس واضحة وأساتذة مزيانين وتتبع حقيقي. زدت الثقة قبل الامتحانات.",
-            name: "سلمى، الدار البيضاء",
-          },
-          {
-            text: "الفيديوهات والامتحانات المصححة عاونوني بزاف. الفريق كيجاوب بسرعة على واتساب.",
-            name: "ياسين، الرباط",
-          },
-          {
-            text: "تنظيم ممتاز ومحتوى كامل من التيليفون. كننصح بيه.",
-            name: "إيمان، مراكش",
-          },
-        ],
       },
       faqVideo: {
         title: "أسئلة متكررة",
