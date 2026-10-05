@@ -1,100 +1,55 @@
 "use client";
 
-import { Lock, Video, Radio, FileText, Headphones } from "lucide-react";
+import Link from "next/link";
 import { useCopy } from "@/context/LanguageContext";
-import FaqList from "@/components/FaqList";
+import RemoteEnrollmentSection from "@/components/cours-distance/RemoteEnrollmentSection";
+import RemoteVideoFaq from "@/components/cours-distance/RemoteVideoFaq";
+import RemotePromoFlyer from "@/components/cours-distance/RemotePromoFlyer";
+import RemoteTestimonials from "@/components/cours-distance/RemoteTestimonials";
 import DemoVideo from "@/components/media/DemoVideo";
-import LeadForm from "@/components/forms/LeadForm";
-import WhatsAppChannelLink from "@/components/whatsapp/WhatsAppChannelLink";
-
-const receiveIcons = [Lock, Video, Radio, FileText, Headphones];
+import { Button } from "@/components/ui/button";
 
 export default function RemotePage() {
   const t = useCopy().remotePage;
-  const wc = useCopy().whatsappChannel;
 
   return (
     <main className="pt-28 pb-10">
-      <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
-        <p className="text-xs font-bold uppercase tracking-[0.3em] text-gold">{t.badge}</p>
-        <h1 className="mt-3 text-4xl font-black sm:text-6xl">{t.title}</h1>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-white/70">{t.subtitle}</p>
-        <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/45">{t.accessLine}</p>
-      </div>
-
-      <section className="mx-auto mt-16 max-w-3xl px-4 sm:px-6">
-        <div className="rounded-[2rem] border border-gold/20 bg-white/[0.03] p-8 backdrop-blur-xl">
-          <h2 className="text-2xl font-black">{t.methodTitle}</h2>
-          <p className="mt-3 leading-relaxed text-white/60">{t.method}</p>
+      <section className="mx-auto max-w-4xl px-4 text-center sm:px-6">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold sm:tracking-[0.25em]">
+          {t.badge}
+        </p>
+        <h1 className="mt-4 text-3xl font-black leading-tight sm:text-5xl">{t.title}</h1>
+        <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
+          {t.description}
+        </p>
+        <p className="mx-auto mt-4 max-w-xl text-sm font-semibold text-gold sm:text-base">{t.offer}</p>
+        <div className="mt-8">
+          <Button asChild size="lg">
+            <Link href="#inscription">{t.heroCta}</Link>
+          </Button>
         </div>
       </section>
 
-      <DemoVideo />
+      <DemoVideo showFooterCta />
 
-      <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-        <div className="mb-10 text-center">
-          <h2 className="text-3xl font-black sm:text-4xl">{t.receiveTitle}</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-white/50">{t.receiveLead}</p>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {t.receive.map((card, i) => {
-            const Icon = receiveIcons[i] ?? Lock;
-            return (
-              <div key={card.title} className="rounded-3xl border border-gold/15 bg-black/40 p-6">
-                <Icon className="h-7 w-7 text-gold" />
-                <h3 className="mt-4 text-lg font-bold">{card.title}</h3>
-                <p className="mt-2 text-sm text-white/50">{card.text}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      <RemotePromoFlyer />
 
-      <section className="mx-auto max-w-3xl px-4 py-4 sm:px-6">
-        <div className="rounded-[2rem] border border-gold/20 bg-white/[0.03] p-6 text-center sm:p-8">
-          <h2 className="text-xl font-black sm:text-2xl">{wc.remoteTitle}</h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-white/55 sm:text-base">
-            {wc.remoteText}
-          </p>
-          <WhatsAppChannelLink
-            source="cours_distance"
-            variant="outline"
-            className="mt-5 h-11 px-5 text-sm"
-          >
-            {wc.remoteCta}
-          </WhatsAppChannelLink>
+      <RemoteEnrollmentSection />
+
+      <RemoteTestimonials />
+
+      <RemoteVideoFaq />
+
+      <section className="mx-auto max-w-3xl px-4 pb-16 pt-4 sm:px-6">
+        <div className="rounded-[2rem] border border-gold/25 bg-gradient-to-b from-gold/[0.08] to-transparent p-8 text-center sm:p-12">
+          <h2 className="text-2xl font-black sm:text-4xl">{t.finalCta.title}</h2>
+          <p className="mx-auto mt-3 max-w-lg text-white/55">{t.finalCta.subtitle}</p>
+          <p className="mt-4 text-lg font-bold text-gold">{t.finalCta.price}</p>
+          <Button asChild size="lg" className="mt-8">
+            <Link href="#inscription">{t.finalCta.button}</Link>
+          </Button>
         </div>
       </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <h2 className="mb-8 text-center text-3xl font-black">{t.howTitle}</h2>
-        <ol className="grid gap-4 md:grid-cols-5">
-          {t.steps.map((step, i) => (
-            <li
-              key={step.title}
-              className="rounded-3xl border border-gold/15 bg-black/40 p-5"
-            >
-              <span className="text-xs font-black uppercase tracking-widest text-gold">
-                0{i + 1}
-              </span>
-              <h3 className="mt-3 text-base font-bold">{step.title}</h3>
-              <p className="mt-2 text-sm text-white/50">{step.text}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section id="inscription" className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-        <div className="rounded-[2rem] border border-gold/25 bg-white/[0.03] p-6 text-center sm:p-10">
-          <h2 className="text-3xl font-black sm:text-4xl">{t.ctaTitle}</h2>
-          <p className="mx-auto mt-3 max-w-xl text-white/50">{t.ctaSubtitle}</p>
-          <div className="mt-8 text-start">
-            <LeadForm kind="distance" />
-          </div>
-        </div>
-      </section>
-
-      <FaqList title={t.faqTitle} items={t.faq} />
     </main>
   );
 }

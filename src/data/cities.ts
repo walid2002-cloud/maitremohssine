@@ -58,18 +58,11 @@ export const cities: CityEvent[] = [
     ],
     salesPoints: [
       {
-        name: "Centre Sidi Moumen",
+        name: "Centre GSM",
         quartier: "Sidi Moumen — 20400",
         adresse: "Centre Sidi Moumen, Casablanca 20400 — HFJ4+47",
         telephone: "06 27 73 99 71",
         maps: "https://www.google.com/maps/search/?api=1&query=HFJ4%2B47%20Casablanca",
-      },
-      {
-        name: "Centre Alpha Cours",
-        quartier: "Azhar — Sidi Bernoussi",
-        adresse: "centre Alpha cours أمام مؤسسة Elbilia",
-        telephone: "06 56 63 16 47",
-        maps: "https://maps.app.goo.gl/thLEym77xfyowQGa7",
       },
       {
         name: "Centre Excellence Elboukhari",
@@ -80,11 +73,11 @@ export const cities: CityEvent[] = [
         maps: "https://maps.app.goo.gl/rAJypJ1xawygHc588",
       },
       {
-        name: "Cool School",
-        quartier: "Maarif — Bourgogne — Ain Diab — Anfa — Belvédère",
-        adresse: "Maarif Cool school, École Romandie, Casablanca",
-        telephone: "06 56 16 95 93",
-        maps: "https://maps.app.goo.gl/BUsrwRziFbc446X38",
+        name: "BETA ACADEMY TIT-MELLIL",
+        quartier: "Tit Mellil",
+        adresse: "",
+        telephone: "06 40 40 48 42",
+        maps: "https://www.google.com/maps/search/?api=1&query=BETA%20ACADEMY%20TIT-MELLIL",
       },
       {
         name: "Centre d'excellence",

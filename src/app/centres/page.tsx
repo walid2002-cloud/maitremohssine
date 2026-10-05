@@ -69,29 +69,37 @@ export default function CentresPage() {
                   </p>
                   <h2 className="mt-1 text-2xl font-black">{c.name}</h2>
                   <p className="mt-2 text-sm text-white/45">{c.quartier}</p>
-                  <p className="mt-4 text-sm leading-relaxed text-white/70">{c.adresse}</p>
+                  {c.adresse.trim() ? (
+                    <p className="mt-4 text-sm leading-relaxed text-white/70">{c.adresse}</p>
+                  ) : null}
                   {c.plusCode ? (
                     <p className="mt-2 font-mono text-xs text-gold/80">{c.plusCode}</p>
                   ) : null}
                   <div className="mt-6 flex flex-wrap gap-2">
-                    <Button asChild size="sm">
-                      <a href={whatsappLink(c.whatsappNumber, `Bonjour, centre ${c.name}`)}>
-                        <MessageCircle className="h-4 w-4" />
-                        {mapT.whatsapp}
-                      </a>
-                    </Button>
-                    <Button asChild variant="outline" size="sm">
-                      <a href={telHref(c.telephone)}>
-                        <Phone className="h-4 w-4" />
-                        {c.telephone}
-                      </a>
-                    </Button>
-                    <Button asChild variant="outline" size="sm">
-                      <a href={c.maps} target="_blank" rel="noopener noreferrer">
-                        <MapPin className="h-4 w-4" />
-                        {mapT.maps}
-                      </a>
-                    </Button>
+                    {c.whatsappNumber.trim() ? (
+                      <Button asChild size="sm">
+                        <a href={whatsappLink(c.whatsappNumber, `Bonjour, centre ${c.name}`)}>
+                          <MessageCircle className="h-4 w-4" />
+                          {mapT.whatsapp}
+                        </a>
+                      </Button>
+                    ) : null}
+                    {c.telephone.trim() ? (
+                      <Button asChild variant="outline" size="sm">
+                        <a href={telHref(c.telephone)}>
+                          <Phone className="h-4 w-4" />
+                          {c.telephone}
+                        </a>
+                      </Button>
+                    ) : null}
+                    {c.maps.trim() ? (
+                      <Button asChild variant="outline" size="sm">
+                        <a href={c.maps} target="_blank" rel="noopener noreferrer">
+                          <MapPin className="h-4 w-4" />
+                          {mapT.maps}
+                        </a>
+                      </Button>
+                    ) : null}
                   </div>
                 </div>
                 <iframe

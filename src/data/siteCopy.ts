@@ -187,60 +187,81 @@ export const siteCopy = {
       empty: "Aucun centre ne correspond à ta recherche.",
     },
     remotePage: {
-      badge: "Accès premium",
-      title: "Cours à distance",
-      subtitle: "La méthode Maître Mohssine, où que tu sois au Maroc.",
-      accessLine:
-        "Un accès privé à des contenus réguliers, des lives, des PDF et un accompagnement à distance.",
-      methodTitle: "La méthode",
-      method:
-        "Cours structurés, production écrite, œuvres au programme, préparation aux examens, lives et suivi à distance.",
+      badge: "Les inscriptions sont ouvertes 🎓",
+      title: "Les Cours à Distance avec les meilleurs professeurs du Maroc 🇲🇦",
+      description:
+        "Préparez vos examens avec des cours structurés, des explications détaillées, des exercices et des examens corrigés.",
+      offer: "🔥 Offre spéciale : 600 DH au lieu de 1200 DH",
+      heroCta: "Je veux m’inscrire",
       demo: {
-        title: "Découvrez l’expérience des cours à distance",
-        text: "Regardez un extrait pour découvrir le fonctionnement des séances, les explications et l’accompagnement proposé.",
+        title: "Découvrez l’offre en vidéo 🎥",
+        intro: "Regardez la vidéo pour découvrir :",
+        bullets: [
+          "Le contenu des cours",
+          "Les matières",
+          "Les professeurs",
+          "Le fonctionnement",
+          "Ce que vous allez recevoir",
+        ],
         play: "Lire la vidéo",
-        placeholder: "Impossible de charger la vidéo de démonstration.",
+        videoCta: "Je veux profiter de l’offre",
       },
-      receiveTitle: "Ce que tu reçois après ton inscription",
-      receiveLead:
-        "Après paiement, tu accèdes à des groupes privés WhatsApp, Facebook et Instagram, avec des contenus pédagogiques exclusifs.",
-      receive: [
-        { title: "Accès privé", text: "Rejoins les groupes réservés aux élèves inscrits." },
-        { title: "Vidéos régulières", text: "Nouveaux contenus publiés régulièrement." },
-        { title: "Lives", text: "Des sessions en direct avec Maître Mohssine." },
-        { title: "PDF & exercices", text: "Cours, exercices et corrections à télécharger." },
-        { title: "Suivi", text: "Reste en contact avec l’équipe et suis le programme." },
-      ],
-      howTitle: "Comment ça fonctionne",
-      steps: [
-        { title: "Tu remplis le formulaire", text: "Nom, prénom, WhatsApp, filière et ville." },
-        { title: "Tu effectues le paiement", text: "L’équipe te guide pour finaliser l’inscription." },
-        { title: "Vérification", text: "L’équipe vérifie ton inscription." },
-        { title: "Tu reçois les accès", text: "Les groupes privés WhatsApp, Facebook et Instagram." },
-        { title: "Tu commences", text: "Vidéos, lives, PDF, exercices et programme." },
-      ],
-      ctaTitle: "Je veux rejoindre les cours à distance",
-      ctaSubtitle: "Remplis le formulaire et notre équipe te contacte pour finaliser ton inscription.",
-      cta: "Je m’inscris",
-      faqTitle: "Questions fréquentes",
-      faq: [
-        {
-          q: "Les contenus sont-ils privés ?",
-          a: "Oui. Après inscription et paiement, tu rejoins des groupes privés (WhatsApp, Facebook, Instagram).",
+      form: {
+        title: "Inscrivez-vous maintenant 👇",
+        subtitle:
+          "Laissez vos coordonnées : notre équipe vous recontacte sur WhatsApp pour finaliser votre inscription aux cours à distance.",
+        fullNameLabel: "Nom complet",
+        fullName: "Votre nom et prénom",
+        whatsappLabel: "Numéro WhatsApp",
+        whatsapp: "06 12 34 56 78",
+        villeLabel: "Ville",
+        ville: "Ex. Casablanca, Rabat…",
+        submitMain: "M’inscrire à 600 DH",
+        submitSub: "Recevoir la confirmation sur WhatsApp",
+        pricing: {
+          urgency: "Le tarif augmente bientôt :",
+          pastPeriod: "Tarif standard",
+          pastPrice: "1200 DH",
+          currentPeriod: "Offre promo — inscriptions ouvertes",
+          currentPrice: "600 DH",
         },
-        {
-          q: "Que reçois-je concrètement ?",
-          a: "Vidéos de cours, lives, PDF, exercices, corrections, rappels et le programme.",
-        },
-        {
-          q: "Faut-il du matériel spécial ?",
-          a: "Un téléphone ou un ordinateur, une connexion stable, un cahier. C’est tout.",
-        },
-        {
-          q: "Puis-je combiner avec un centre ?",
-          a: "Oui. Beaucoup d’élèves mixent présentiel et distant selon leur emploi du temps.",
-        },
-      ],
+      },
+      testimonials: {
+        title: "Ils nous font confiance ❤️",
+        items: [
+          {
+            text: "Des cours clairs, des profs au top et un vrai suivi. J’ai gagné en confiance avant les examens.",
+            name: "Salma, Casablanca",
+          },
+          {
+            text: "Les vidéos et les examens corrigés m’ont beaucoup aidé. L’équipe répond vite sur WhatsApp.",
+            name: "Yassine, Rabat",
+          },
+          {
+            text: "Organisation au top, contenu complet et accessible depuis le téléphone. Je recommande.",
+            name: "Imane, Marrakech",
+          },
+        ],
+      },
+      faqVideo: {
+        title: "Questions fréquentes",
+        items: [
+          { q: "Qu’est-ce qu’il y a dans les cours à distance ?" },
+          { q: "Comment fonctionne l’accompagnement et le support ?" },
+          { q: "Comment se passent les Maths dans les cours à distance ?" },
+          {
+            q: "Quelles sont les matières littéraires disponibles ?",
+            hint: "المواد الأدبية — اللغة العربية · الإجتماعيات · التربية الإسلامية",
+          },
+          { q: "Comment payer ?" },
+        ],
+      },
+      finalCta: {
+        title: "Prêt à commencer ? 🎓",
+        subtitle: "Inscrivez-vous maintenant et commencez votre préparation.",
+        price: "1200 DH → 600 DH",
+        button: "JE M’INSCRIS MAINTENANT",
+      },
     },
     eventPage: {
       navLabel: "Événement National",
@@ -492,59 +513,81 @@ export const siteCopy = {
       empty: "ما كاين حتى مركز بهاد البحث.",
     },
     remotePage: {
-      badge: "وصول مميز",
-      title: "دروس عن بعد",
-      subtitle: "طريقة الأستاذ محسن، فين ما كنتي فالمغرب.",
-      accessLine: "وصول خاص لمحتويات منتظمة، لايفات، PDF ومرافقة عن بعد.",
-      methodTitle: "الطريقة",
-      method:
-        "دروس منظمة، التعبير الكتابي، المؤلفات، التحضير للامتحانات، لايف وتتبع عن بعد.",
+      badge: "التسجيل مفتوح 🎓",
+      title: "الدروس عن بعد مع أحسن الأساتذة فالمغرب 🇲🇦",
+      description:
+        "حضّر الامتحانات بدروس منظمة، شروحات مفصلة، تمارين وامتحانات مصححة.",
+      offer: "🔥 عرض خاص : 600 درهم بدل 1200 درهم",
+      heroCta: "بغيت نسجل",
       demo: {
-        title: "اكتشف تجربة الدروس عن بعد",
-        text: "شوف مقطع باش تفهم كيفاش كتمشي الحصص، الشروحات والمرافقة.",
+        title: "اكتشف العرض بالفيديو 🎥",
+        intro: "شوف الفيديو باش تعرف :",
+        bullets: [
+          "محتوى الدروس",
+          "المواد",
+          "الأساتذة",
+          "كيفاش كيخدم",
+          "شنو غادي توصلك",
+        ],
         play: "شغل الفيديو",
-        placeholder: "ما قدرناش نشغلو فيديو التجربة.",
+        videoCta: "بغيت نستافد من العرض",
       },
-      receiveTitle: "شنو كتستافد من بعد التسجيل",
-      receiveLead:
-        "من بعد الأداء، كتدخل لكروبات خاصة واتساب، فيسبوك وإنستغرام، بمحتوى بيداغوجي حصري.",
-      receive: [
-        { title: "وصول خاص", text: "دخل للكروبات ديال التلاميذ المسجلين." },
-        { title: "فيديوهات منتظمة", text: "محتويات جديدة كتنزل بانتظام." },
-        { title: "لايف", text: "حصص مباشرة مع الأستاذ محسن." },
-        { title: "PDF وتمارين", text: "دروس، تمارين وتصحيحات للتحميل." },
-        { title: "تتبع", text: "بقا متصل مع الفريق وتابع البرنامج." },
-      ],
-      howTitle: "كيفاش كتمشي",
-      steps: [
-        { title: "عمر الفورم", text: "الاسم، الواتساب، الشعبة والمدينة." },
-        { title: "الأداء", text: "الفريق كيعاونك تكمل التسجيل." },
-        { title: "التحقق", text: "الفريق كيتأكد من التسجيل ديالك." },
-        { title: "كتاخد الوصول", text: "الكروبات الخاصة واتساب، فيسبوك وإنستغرام." },
-        { title: "تبدا", text: "فيديوهات، لايف، PDF، تمارين وبرنامج." },
-      ],
-      ctaTitle: "بغيت ندخل للدروس عن بعد",
-      ctaSubtitle: "عمر الفورم والفريق غادي يتصل بيك باش تكمل التسجيل.",
-      cta: "نسجل",
-      faqTitle: "أسئلة متكررة",
-      faq: [
-        {
-          q: "المحتوى خاص؟",
-          a: "آه. من بعد التسجيل والأداء، كتدخل لكروبات خاصة (واتساب، فيسبوك، إنستغرام).",
+      form: {
+        title: "سجل دابا 👇",
+        subtitle:
+          "خلي معلوماتك : الفريق غادي يرجع ليك على واتساب باش تكمل التسجيل فالدروس عن بعد.",
+        fullNameLabel: "الاسم الكامل",
+        fullName: "الاسم واللقب",
+        whatsappLabel: "رقم واتساب",
+        whatsapp: "06 12 34 56 78",
+        villeLabel: "المدينة",
+        ville: "مثال : الدار البيضاء، الرباط…",
+        submitMain: "نسجل ب 600 درهم",
+        submitSub: "توصل بالتأكيد على واتساب",
+        pricing: {
+          urgency: "الثمن غادي يطلع قريب :",
+          pastPeriod: "الثمن العادي",
+          pastPrice: "1200 درهم",
+          currentPeriod: "عرض promo — التسجيل مفتوح",
+          currentPrice: "600 درهم",
         },
-        {
-          q: "شنو كناخد بالضبط؟",
-          a: "فيديوهات الدروس، لايف، PDF، تمارين، تصحيحات، تذكيرات والبرنامج.",
-        },
-        {
-          q: "واش خاص تجهيز خاص؟",
-          a: "تيليفون أو أوردياتور، إنترنت مستقرة، وكراسة. هادشي كامل.",
-        },
-        {
-          q: "نقدر نخلط مع المركز؟",
-          a: "آه. بزاف ديال التلاميذ كيديرو حضوري وعن بعد حسب الوقت.",
-        },
-      ],
+      },
+      testimonials: {
+        title: "كيتثقوا فينا ❤️",
+        items: [
+          {
+            text: "دروس واضحة وأساتذة مزيانين وتتبع حقيقي. زدت الثقة قبل الامتحانات.",
+            name: "سلمى، الدار البيضاء",
+          },
+          {
+            text: "الفيديوهات والامتحانات المصححة عاونوني بزاف. الفريق كيجاوب بسرعة على واتساب.",
+            name: "ياسين، الرباط",
+          },
+          {
+            text: "تنظيم ممتاز ومحتوى كامل من التيليفون. كننصح بيه.",
+            name: "إيمان، مراكش",
+          },
+        ],
+      },
+      faqVideo: {
+        title: "أسئلة متكررة",
+        items: [
+          { q: "شنو كاين فالدروس عن بعد؟" },
+          { q: "كيفاش كيخدم المرافقة والدعم؟" },
+          { q: "كيفاش كتمشي Maths فالدروس عن بعد؟" },
+          {
+            q: "شنو المواد الأدبية المتوفرة؟",
+            hint: "المواد الأدبية — اللغة العربية · الإجتماعيات · التربية الإسلامية",
+          },
+          { q: "كيفاش ندفع؟" },
+        ],
+      },
+      finalCta: {
+        title: "واش راك مستعد تبدا ؟ 🎓",
+        subtitle: "سجل دابا وابدا التحضير ديالك.",
+        price: "1200 → 600 درهم",
+        button: "نسجل دابا",
+      },
     },
     eventPage: {
       navLabel: "الحدث الوطني",

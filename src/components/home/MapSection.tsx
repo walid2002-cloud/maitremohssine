@@ -45,7 +45,7 @@ export default function MapSection() {
                     {lang === "fr" ? c.city : c.cityAr}
                   </p>
                   <p className="mt-1 font-bold text-white">{c.name}</p>
-                  <p className="mt-1 text-xs text-white/45">{c.adresse}</p>
+                  <p className="mt-1 text-xs text-white/45">{c.adresse.trim() || c.quartier}</p>
                   {c.plusCode ? (
                     <p className="mt-2 font-mono text-[11px] text-gold/80">{c.plusCode}</p>
                   ) : null}
@@ -67,29 +67,40 @@ export default function MapSection() {
               <div className="flex items-start gap-2 text-sm text-white/70">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
                 <span>
-                  {selected.adresse}
+                  {selected.adresse.trim() || selected.quartier}
                   {selected.plusCode ? ` · ${selected.plusCode}` : ""}
                 </span>
               </div>
               <div className="flex flex-wrap gap-2">
-                <Button asChild size="sm">
-                  <a href={whatsappLink(selected.whatsappNumber, `Bonjour, je m'intéresse au ${selected.name}`)}>
-                    <MessageCircle className="h-4 w-4" />
-                    {t.whatsapp}
-                  </a>
-                </Button>
-                <Button asChild variant="outline" size="sm">
-                  <a href={telHref(selected.telephone)}>
-                    <Phone className="h-4 w-4" />
-                    {selected.telephone}
-                  </a>
-                </Button>
-                <Button asChild variant="outline" size="sm">
-                  <a href={selected.maps} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4" />
-                    {t.maps}
-                  </a>
-                </Button>
+                {selected.whatsappNumber.trim() ? (
+                  <Button asChild size="sm">
+                    <a
+                      href={whatsappLink(
+                        selected.whatsappNumber,
+                        `Bonjour, je m'intéresse au ${selected.name}`
+                      )}
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      {t.whatsapp}
+                    </a>
+                  </Button>
+                ) : null}
+                {selected.telephone.trim() ? (
+                  <Button asChild variant="outline" size="sm">
+                    <a href={telHref(selected.telephone)}>
+                      <Phone className="h-4 w-4" />
+                      {selected.telephone}
+                    </a>
+                  </Button>
+                ) : null}
+                {selected.maps.trim() ? (
+                  <Button asChild variant="outline" size="sm">
+                    <a href={selected.maps} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="h-4 w-4" />
+                      {t.maps}
+                    </a>
+                  </Button>
+                ) : null}
                 <Button asChild variant="ghost" size="sm">
                   <Link href={`/centres#${selected.id}`}>{t.viewCenter}</Link>
                 </Button>

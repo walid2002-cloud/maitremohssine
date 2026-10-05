@@ -13,6 +13,23 @@ export const CASA_DELIVERY_REQUEST_URL = (
 
 export const WHATSAPP_NUMBER = "212622331464";
 
+/** Ligne WhatsApp dédiée aux inscriptions cours à distance (flyer promo). */
+export const REMOTE_COURSE_WHATSAPP = "212708457935";
+
+export function getRemoteCourseEnrollmentWhatsApp(data: {
+  fullName: string;
+  telephone: string;
+  ville: string;
+}): string {
+  const lines = [
+    "Bonjour, je souhaite m'inscrire aux Cours à Distance.",
+    `Nom : ${data.fullName}`,
+    `WhatsApp : ${data.telephone}`,
+    `Ville : ${data.ville}`,
+  ];
+  return `https://wa.me/${REMOTE_COURSE_WHATSAPP}?text=${encodeURIComponent(lines.join("\n"))}`;
+}
+
 /** Chaîne WhatsApp officielle — distincte du contact privé. */
 export const WHATSAPP_CHANNEL_URL =
   "https://whatsapp.com/channel/0029Vb7xoB5FHWq2JEdr272Q";
