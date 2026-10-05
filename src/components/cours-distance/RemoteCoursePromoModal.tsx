@@ -112,22 +112,21 @@ export default function RemoteCoursePromoModal() {
               <X className="h-5 w-5" />
             </button>
 
-            {/* Colonne visuel */}
+            {/* Colonne visuel — mobile : image bord à bord en haut */}
             <motion.div
-              className="relative flex h-[min(34dvh,220px)] shrink-0 items-center justify-center bg-[#070707] p-3 md:h-auto md:w-[55%] md:max-w-[55%] md:p-5 lg:p-6"
+              className="relative w-full shrink-0 overflow-hidden p-0 md:flex md:h-auto md:w-[55%] md:max-w-[55%] md:items-center md:justify-center md:bg-[#070707] md:p-5 lg:p-6"
               initial={{ opacity: 0, x: -15 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.05, ease: "easeOut" }}
             >
-              <div className="relative flex h-full w-full items-center justify-center md:absolute md:inset-0 md:p-5">
+              <div className="relative w-full leading-none md:absolute md:inset-0 md:flex md:items-center md:justify-center md:p-5">
                 <Image
                   src={PROMO_IMAGE}
                   alt={t.imageAlt}
                   width={PROMO_W}
                   height={PROMO_H}
-                  className="max-h-full max-w-full object-contain"
-                  style={{ width: "auto", height: "auto", maxHeight: "100%", maxWidth: "100%" }}
-                  sizes="(max-width: 768px) calc(100vw - 48px), 55vw"
+                  className="block h-auto w-full md:max-h-full md:max-w-full md:w-auto md:object-contain"
+                  sizes="(max-width: 768px) calc(100vw - 24px), 55vw"
                   priority
                 />
               </div>
