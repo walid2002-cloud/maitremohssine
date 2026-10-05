@@ -11,7 +11,7 @@ export const CASA_DELIVERY_REQUEST_URL = (
     : HARDCODED_CASA_DELIVERY_URL
 ).trim();
 
-export const WHATSAPP_NUMBER = "212622331464";
+export const WHATSAPP_NUMBER = "212708457935";
 
 /** Ligne WhatsApp dédiée aux inscriptions cours à distance (flyer promo). */
 export const REMOTE_COURSE_WHATSAPP = "212708457935";

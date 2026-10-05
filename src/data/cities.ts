@@ -34,7 +34,7 @@ export const cities: CityEvent[] = [
     id: "casablanca",
     city: "Casablanca",
     cityAr: "الدار البيضاء",
-    whatsappNumber: "212622331464",
+    whatsappNumber: "212708457935",
     sessions: [
       {
         sessionId: "casa-09",

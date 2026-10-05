@@ -13,9 +13,9 @@ export type Center = {
   featuredOnMap?: boolean;
 };
 
-export const WHATSAPP_MAIN = "212622331464";
-export const PHONE_DISPLAY = "06 22 33 14 64";
-export const PHONE_TEL = "+212622331464";
+export const WHATSAPP_MAIN = "212708457935";
+export const PHONE_DISPLAY = "07 08 45 79 35";
+export const PHONE_TEL = "+212708457935";
 export const YOUTUBE_CHANNEL = "https://www.youtube.com/@maitremohssine";
 export const YOUTUBE_SUBSCRIBE = "https://www.youtube.com/@maitremohssine?sub_confirmation=1";
 export const YOUTUBE_CHANNEL_ID = "UCBjdYk1e7MZthMCl2BXi5vg";
