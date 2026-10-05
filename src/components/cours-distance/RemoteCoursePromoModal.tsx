@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
@@ -9,10 +10,11 @@ import { getRemoteCoursePromoWhatsAppLink } from "@/data/publicLinks";
 import { Button } from "@/components/ui/button";
 
 const PROMO_IMAGE = "/images/cours-distance-promo-flyer.jpg";
-const PROMO_W = 768;
-const PROMO_H = 1024;
-const SESSION_KEY = "distanceCoursePromoSeen";
-const OPEN_DELAY_MS = 750;
+const PROMO_W = 1024;
+const PROMO_H = 576;
+const SESSION_KEY = "maitreMohssinePromoSeen";
+const OPEN_DELAY_MS = 700;
+const REMOTE_OFFER_PATH = "/cours-distance";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -24,6 +26,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 export default function RemoteCoursePromoModal() {
   const t = useCopy().remotePage.promoModal;
+  const pathname = usePathname();
   const titleId = useId();
   const [open, setOpen] = useState(false);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
@@ -39,10 +42,14 @@ export default function RemoteCoursePromoModal() {
 
   const discoverOffer = useCallback(() => {
     markSeenAndClose();
-    window.requestAnimationFrame(() => {
-      document.getElementById("inscription")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  }, [markSeenAndClose]);
+    if (pathname === REMOTE_OFFER_PATH) {
+      window.requestAnimationFrame(() => {
+        document.getElementById("inscription")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      return;
+    }
+    window.location.assign(`${REMOTE_OFFER_PATH}#inscription`);
+  }, [markSeenAndClose, pathname]);
 
   useEffect(() => {
     try {
