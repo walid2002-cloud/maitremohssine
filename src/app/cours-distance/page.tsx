@@ -23,11 +23,6 @@ export default function RemotePage() {
           {t.description}
         </p>
         <p className="mx-auto mt-4 max-w-xl text-sm font-semibold text-gold sm:text-base">{t.offer}</p>
-        <div className="mt-8">
-          <Button asChild size="lg">
-            <Link href="#inscription">{t.heroCta}</Link>
-          </Button>
-        </div>
       </section>
 
       <DemoVideo showFooterCta />
