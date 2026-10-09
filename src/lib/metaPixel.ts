@@ -1,9 +1,11 @@
 /**
  * Meta (Facebook) Pixel — client-side only, sans données personnelles.
- * Actif en production uniquement si NEXT_PUBLIC_META_PIXEL_ID est défini.
+ * Actif en production uniquement. ID surchargeable via NEXT_PUBLIC_META_PIXEL_ID.
  */
 
-export const META_PIXEL_ID = (process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "").trim();
+export const META_PIXEL_ID = (
+  process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "2136219407213190"
+).trim();
 
 export const COURSE_DISTANCE_PATH = "/cours-distance";
 
