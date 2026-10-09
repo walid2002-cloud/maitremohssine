@@ -7,6 +7,7 @@ import { Play } from "lucide-react";
 import { useCopy } from "@/context/LanguageContext";
 import { ytEmbed, ytThumb } from "@/data/youtube";
 import { Button } from "@/components/ui/button";
+import { trackCourseRegistrationClick, trackCourseVideoPlay } from "@/lib/metaPixel";
 
 const DEMO_YT_ID = "FPDYWJZCjSI";
 
@@ -39,7 +40,10 @@ export default function DemoVideo({ showFooterCta = false }: Props) {
           ) : (
             <button
               type="button"
-              onClick={() => setPlaying(true)}
+              onClick={() => {
+                trackCourseVideoPlay();
+                setPlaying(true);
+              }}
               className="relative block w-full"
               aria-label={t.play}
             >
@@ -61,7 +65,9 @@ export default function DemoVideo({ showFooterCta = false }: Props) {
         {showFooterCta ? (
           <div className="mt-8 flex justify-center">
             <Button asChild size="lg">
-              <Link href="#inscription">{t.videoCta}</Link>
+              <Link href="#inscription" onClick={() => trackCourseRegistrationClick()}>
+                {t.videoCta}
+              </Link>
             </Button>
           </div>
         ) : null}

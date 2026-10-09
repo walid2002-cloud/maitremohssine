@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MetaPixel } from "@/components/analytics/MetaPixel";
 
 export const metadata: Metadata = {
   title: "Cours à distance Maître Mohssine",
@@ -14,5 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default function RemoteLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <MetaPixel />
+      {children}
+    </>
+  );
 }

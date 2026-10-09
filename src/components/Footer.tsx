@@ -7,10 +7,13 @@ import { translations } from "@/data/translations";
 import { PHONE_DISPLAY, PHONE_TEL, YOUTUBE_CHANNEL } from "@/data/centers";
 import { getEnrollWhatsAppLink } from "@/data/publicLinks";
 import WhatsAppChannelLink from "@/components/whatsapp/WhatsAppChannelLink";
+import { usePathname } from "next/navigation";
+import { isCourseDistanceRoute, trackCourseDistanceWhatsAppContact } from "@/lib/metaPixel";
 
 const AGENCY_LOGO = "/images/with-khalil-agency-logo.png";
 
 export default function Footer() {
+  const pathname = usePathname();
   const copy = useCopy();
   const { lang, isRtl } = useLang();
   const t = copy.footer;
@@ -42,7 +45,15 @@ export default function Footer() {
           <h3 className="text-xs font-bold uppercase tracking-widest text-gold">{t.contact}</h3>
           <ul className="mt-4 space-y-2 text-sm text-white/50">
             <li>
-              <a href={getEnrollWhatsAppLink()} target="_blank" rel="noopener noreferrer" className="hover:text-gold">
+              <a
+                href={getEnrollWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gold"
+                onClick={() => {
+                  if (isCourseDistanceRoute(pathname)) trackCourseDistanceWhatsAppContact();
+                }}
+              >
                 WhatsApp
               </a>
             </li>

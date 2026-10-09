@@ -7,6 +7,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useCopy } from "@/context/LanguageContext";
 import { getRemoteCoursePromoWhatsAppLink } from "@/data/publicLinks";
+import {
+  isCourseDistanceRoute,
+  trackCourseDistanceWhatsAppContact,
+  trackCourseRegistrationClick,
+} from "@/lib/metaPixel";
 import { Button } from "@/components/ui/button";
 
 const PROMO_IMAGE = "/images/cours-distance-promo-flyer.jpg";
@@ -41,6 +46,7 @@ export default function RemoteCoursePromoModal() {
   }, []);
 
   const discoverOffer = useCallback(() => {
+    trackCourseRegistrationClick();
     markSeenAndClose();
     if (pathname === REMOTE_OFFER_PATH) {
       window.requestAnimationFrame(() => {
@@ -196,7 +202,12 @@ export default function RemoteCoursePromoModal() {
                     href={getRemoteCoursePromoWhatsAppLink()}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={markSeenAndClose}
+                    onClick={() => {
+                      if (isCourseDistanceRoute(pathname)) {
+                        trackCourseDistanceWhatsAppContact();
+                      }
+                      markSeenAndClose();
+                    }}
                   >
                     <WhatsAppIcon className="h-5 w-5 shrink-0 text-emerald-400" />
                     {t.ctaWhatsApp}

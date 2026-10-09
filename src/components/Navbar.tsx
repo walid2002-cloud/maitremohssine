@@ -9,6 +9,11 @@ import { useCopy, useLang } from "@/context/LanguageContext";
 import { getEnrollWhatsAppLink } from "@/data/publicLinks";
 import WhatsAppChannelLink from "@/components/whatsapp/WhatsAppChannelLink";
 import { cn } from "@/lib/utils";
+import { isCourseDistanceRoute, trackCourseDistanceWhatsAppContact } from "@/lib/metaPixel";
+
+function onCourseDistanceWhatsAppClick(pathname: string) {
+  if (isCourseDistanceRoute(pathname)) trackCourseDistanceWhatsAppContact();
+}
 
 function linkActive(pathname: string, href: string) {
   const path = href.split("#")[0];
@@ -104,6 +109,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className="hidden rounded-full bg-gold px-4 py-2 text-[12px] font-semibold text-black sm:inline-flex"
+            onClick={() => onCourseDistanceWhatsAppClick(pathname)}
           >
             {t.whatsapp}
           </a>
@@ -151,6 +157,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-3 block rounded-full bg-gold px-4 py-2.5 text-center text-sm font-semibold text-black sm:hidden"
+                onClick={() => onCourseDistanceWhatsAppClick(pathname)}
               >
                 {t.whatsapp}
               </a>

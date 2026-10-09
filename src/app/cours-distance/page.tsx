@@ -8,6 +8,7 @@ import RemotePromoFlyer from "@/components/cours-distance/RemotePromoFlyer";
 import RemoteTestimonials from "@/components/cours-distance/RemoteTestimonials";
 import DemoVideo from "@/components/media/DemoVideo";
 import { Button } from "@/components/ui/button";
+import { trackCourseRegistrationClick } from "@/lib/metaPixel";
 
 export default function RemotePage() {
   const t = useCopy().remotePage;
@@ -41,7 +42,9 @@ export default function RemotePage() {
           <p className="mx-auto mt-3 max-w-lg text-white/55">{t.finalCta.subtitle}</p>
           <p className="mt-4 text-lg font-bold text-gold">{t.finalCta.price}</p>
           <Button asChild size="lg" className="mt-8">
-            <Link href="#inscription">{t.finalCta.button}</Link>
+            <Link href="#inscription" onClick={() => trackCourseRegistrationClick()}>
+              {t.finalCta.button}
+            </Link>
           </Button>
         </div>
       </section>

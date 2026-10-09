@@ -5,6 +5,7 @@ import { AlertTriangle } from "lucide-react";
 import { useCopy } from "@/context/LanguageContext";
 import { getRemoteCourseEnrollmentWhatsApp } from "@/data/publicLinks";
 import { detectTrafficSource, submitLead } from "@/lib/leads";
+import { trackCourseDistanceLeadSuccess } from "@/lib/metaPixel";
 
 function splitFullName(full: string): { nom: string; prenom: string } {
   const parts = full.trim().split(/\s+/).filter(Boolean);
@@ -64,6 +65,8 @@ export default function RemoteEnrollmentSection() {
         setStatus("error");
         return;
       }
+
+      trackCourseDistanceLeadSuccess();
 
       window.location.href = getRemoteCourseEnrollmentWhatsApp({
         fullName: name,
