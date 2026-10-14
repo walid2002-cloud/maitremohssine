@@ -1,25 +1,37 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useCopy } from "@/context/LanguageContext";
-import { getRemoteCoursePromoWhatsAppLink } from "@/data/publicLinks";
+import {
+  getRemoteCourseEnrollmentWhatsApp,
+  getRemoteCoursePromoWhatsAppLink,
+} from "@/data/publicLinks";
+import { detectTrafficSource, submitLead } from "@/lib/leads";
 import {
   isCourseDistanceRoute,
+  trackCourseDistanceLeadSuccess,
   trackCourseDistanceWhatsAppContact,
   trackCourseRegistrationClick,
 } from "@/lib/metaPixel";
 import { Button } from "@/components/ui/button";
 
-const PROMO_IMAGE = "/images/cours-distance-promo-flyer.jpg";
-const PROMO_W = 1024;
-const PROMO_H = 576;
+const PROMO_IMAGE = "/images/rappel-controle-1bac-popup.png";
 const SESSION_KEY = "maitreMohssinePromoSeen";
 const OPEN_DELAY_MS = 700;
-const REMOTE_OFFER_PATH = "/cours-distance";
+
+const fieldClass =
+  "h-10 w-full rounded-xl border border-gold/25 bg-white/[0.06] px-3.5 text-sm text-white outline-none placeholder:text-white/35 focus:border-gold focus:ring-1 focus:ring-gold/40 sm:h-11 sm:px-4";
+
+function splitFullName(full: string): { nom: string; prenom: string } {
+  const parts = full.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return { nom: "", prenom: "" };
+  if (parts.length === 1) return { nom: parts[0], prenom: "—" };
+  return { nom: parts[0], prenom: parts.slice(1).join(" ") };
+}
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -31,10 +43,19 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 export default function RemoteCoursePromoModal() {
   const t = useCopy().remotePage.promoModal;
+  const formCopy = useCopy().remotePage.form;
+  const formT = useCopy().form;
   const pathname = usePathname();
   const titleId = useId();
   const [open, setOpen] = useState(false);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const openedAt = useRef(Date.now());
+  const submitting = useRef(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
+  const [fullName, setFullName] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [ville, setVille] = useState("");
+  const [company, setCompany] = useState("");
 
   const markSeenAndClose = useCallback(() => {
     try {
@@ -45,17 +66,10 @@ export default function RemoteCoursePromoModal() {
     setOpen(false);
   }, []);
 
-  const discoverOffer = useCallback(() => {
-    trackCourseRegistrationClick();
-    markSeenAndClose();
-    if (pathname === REMOTE_OFFER_PATH) {
-      window.requestAnimationFrame(() => {
-        document.getElementById("inscription")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-      return;
-    }
-    window.location.assign(`${REMOTE_OFFER_PATH}#inscription`);
-  }, [markSeenAndClose, pathname]);
+  useEffect(() => {
+    if (!open) return;
+    openedAt.current = Date.now();
+  }, [open]);
 
   useEffect(() => {
     try {
@@ -83,19 +97,70 @@ export default function RemoteCoursePromoModal() {
     };
   }, [open, markSeenAndClose]);
 
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (submitting.current || status === "loading") return;
+
+    const name = fullName.trim();
+    const phone = whatsapp.trim();
+    const city = ville.trim();
+    if (!name || !phone || !city) return;
+
+    trackCourseRegistrationClick();
+    submitting.current = true;
+    setStatus("loading");
+
+    const { nom, prenom } = splitFullName(name);
+
+    try {
+      const result = await submitLead({
+        kind: "distance",
+        nom,
+        prenom,
+        telephone: phone,
+        filiere: "—",
+        ville: city,
+        source: detectTrafficSource(),
+        page: window.location.pathname,
+        company,
+        formOpenedAt: openedAt.current,
+      });
+
+      if (!result.ok) {
+        setStatus("error");
+        return;
+      }
+
+      trackCourseDistanceLeadSuccess();
+      markSeenAndClose();
+
+      window.location.href = getRemoteCourseEnrollmentWhatsApp({
+        fullName: name,
+        telephone: phone,
+        ville: city,
+      });
+    } catch {
+      setStatus("error");
+    } finally {
+      submitting.current = false;
+    }
+  };
+
   return (
     <AnimatePresence>
       {open ? (
         <motion.div
-          className="fixed inset-0 z-[85] flex items-center justify-center p-3 sm:p-5 md:p-10"
+          className="fixed inset-0 z-[85] flex items-center justify-center p-2 sm:p-4 md:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.35 }}
         >
-          <div
-            className="absolute inset-0 bg-[rgba(0,0,0,0.78)] backdrop-blur-[10px]"
-            aria-hidden
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/82 backdrop-blur-md"
+            aria-label={t.close}
+            onClick={markSeenAndClose}
           />
 
           <motion.div
@@ -105,124 +170,135 @@ export default function RemoteCoursePromoModal() {
             initial={{ opacity: 0, scale: 0.96, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: 8 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="relative flex w-[calc(100vw-24px)] max-w-[430px] flex-col overflow-hidden rounded-3xl border border-gold/20 bg-[#070707] shadow-[0_0_0_1px_rgba(201,162,39,0.1),0_32px_100px_rgba(0,0,0,0.85),0_0_80px_rgba(201,162,39,0.08)] md:h-[min(680px,calc(100dvh-64px))] md:max-h-[calc(100dvh-64px)] md:w-[min(1100px,calc(100vw-80px))] md:max-w-[min(1100px,calc(100vw-80px))] md:flex-row"
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="relative flex h-[min(680px,calc(100dvh-16px))] w-[min(940px,calc(100vw-16px))] flex-row overflow-hidden rounded-2xl border border-gold/20 bg-[#070707] shadow-[0_0_0_1px_rgba(201,162,39,0.1),0_32px_100px_rgba(0,0,0,0.85)] sm:rounded-[1.35rem]"
           >
             <button
               ref={closeBtnRef}
               type="button"
               onClick={markSeenAndClose}
-              className="absolute end-3 top-3 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white backdrop-blur-sm transition hover:border-gold/45 hover:bg-black/80 md:end-4 md:top-4"
+              className="absolute end-2 top-2 z-30 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/75 text-white backdrop-blur-sm transition hover:border-gold/45 sm:end-3 sm:top-3 sm:h-10 sm:w-10"
               aria-label={t.close}
             >
-              <X className="h-5 w-5" />
+              <X className="h-4 w-4" />
             </button>
 
-            {/* Colonne visuel — mobile : image bord à bord en haut */}
-            <motion.div
-              className="relative w-full shrink-0 overflow-hidden p-0 md:flex md:h-auto md:w-[55%] md:max-w-[55%] md:items-center md:justify-center md:bg-[#070707] md:p-5 lg:p-6"
-              initial={{ opacity: 0, x: -15 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.05, ease: "easeOut" }}
-            >
-              <div className="relative w-full leading-none md:absolute md:inset-0 md:flex md:items-center md:justify-center md:p-5">
+            {/* Affiche — colonne gauche, image entière sans scroll */}
+            <div className="flex h-full w-[38%] min-w-[120px] max-w-[380px] shrink-0 items-center justify-center border-e border-white/10 bg-[#0a0a0a] p-1.5 sm:w-[42%] sm:p-3 md:p-4">
+              <div className="relative h-full w-full">
                 <Image
                   src={PROMO_IMAGE}
                   alt={t.imageAlt}
-                  width={PROMO_W}
-                  height={PROMO_H}
-                  className="block h-auto w-full md:max-h-full md:max-w-full md:w-auto md:object-contain"
-                  sizes="(max-width: 768px) calc(100vw - 24px), 55vw"
+                  fill
+                  className="object-contain object-center"
+                  sizes="(max-width: 768px) 38vw, 380px"
                   priority
                 />
               </div>
-              <div
-                className="pointer-events-none absolute inset-y-0 end-0 hidden w-px bg-gradient-to-b from-transparent via-gold/20 to-transparent md:block"
-                aria-hidden
-              />
-            </motion.div>
+            </div>
 
-            {/* Colonne conversion */}
-            <motion.div
-              className="flex min-h-0 flex-1 flex-col justify-center overflow-hidden px-4 pb-5 pt-3 md:w-[45%] md:max-w-[45%] md:px-6 md:py-6 lg:px-8 lg:py-7"
-              initial={{ opacity: 0, x: 15 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
-            >
-              <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-gold md:text-[11px]">
-                {t.cohortLabel}
-              </p>
-              <h2 id={titleId} className="mt-2 text-[1.35rem] font-black leading-[1.15] text-white md:mt-2.5 md:text-[1.65rem] lg:text-[1.75rem]">
-                {t.titleLine1}
-                <br />
-                {t.titleLine2}
-              </h2>
-              <p className="mt-2 text-xs leading-relaxed text-white/50 md:mt-2.5 md:text-sm">
-                {t.subtitle}
-              </p>
-
-              <ul className="mt-3 space-y-1.5 md:mt-4 md:space-y-2">
-                {t.perks.map((line) => (
-                  <li key={line} className="flex items-start gap-2 text-xs text-white/75 md:text-sm">
-                    <span className="shrink-0 text-gold" aria-hidden>
-                      ✓
-                    </span>
-                    <span>{line}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-4 flex flex-wrap items-end gap-x-3 gap-y-1 md:mt-5">
-                <span className="text-base text-white/30 line-through md:text-lg">{t.pricePast}</span>
-                <span className="text-3xl font-black leading-none text-gold md:text-[2.35rem]">
-                  {t.priceCurrent}
-                </span>
-                <span className="mb-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-gold/75 md:text-xs">
-                  {t.pricePromoLabel}
-                </span>
+            {/* Formulaire — colonne droite */}
+            <div className="flex min-h-0 min-w-0 flex-1 flex-col justify-center gap-5 overflow-hidden px-4 py-5 sm:gap-6 sm:px-6 sm:py-6 md:px-8 md:py-7">
+              <div className="space-y-2 sm:space-y-2.5">
+                <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-gold sm:text-[10px]">
+                  {t.cohortLabel}
+                </p>
+                <h2
+                  id={titleId}
+                  className="text-base font-black leading-snug text-white sm:text-lg md:text-xl"
+                >
+                  {t.titleLine1}
+                </h2>
+                <p className="text-xs font-semibold leading-relaxed text-white/75 sm:text-sm">{t.titleLine2}</p>
+                <p className="text-[11px] leading-relaxed text-white/45 sm:text-xs">{t.subtitle}</p>
               </div>
 
-              <div className="mt-4 flex flex-col gap-2 md:mt-5 md:gap-2.5">
+              <form onSubmit={onSubmit} className="space-y-3.5 sm:space-y-4">
+                <input
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                  aria-hidden
+                />
+                <input
+                  required
+                  name="fullName"
+                  placeholder={formCopy.fullName}
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  className={fieldClass}
+                  autoComplete="name"
+                />
+                <input
+                  required
+                  name="whatsapp"
+                  type="tel"
+                  placeholder={formCopy.whatsapp}
+                  value={whatsapp}
+                  onChange={(e) => setWhatsapp(e.target.value)}
+                  className={fieldClass}
+                  autoComplete="tel"
+                />
+                <input
+                  required
+                  name="ville"
+                  placeholder={formCopy.ville}
+                  value={ville}
+                  onChange={(e) => setVille(e.target.value)}
+                  className={fieldClass}
+                  autoComplete="address-level2"
+                />
+
+                {status === "error" && (
+                  <p className="text-[11px] text-red-300 sm:text-xs" role="alert">
+                    {formT.error}
+                  </p>
+                )}
+
                 <Button
-                  type="button"
-                  size="lg"
-                  className="h-12 w-full text-sm md:h-[3.25rem] md:text-base"
-                  onClick={discoverOffer}
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="!mt-5 h-11 w-full text-sm font-bold sm:!mt-6 sm:h-12"
                 >
-                  {t.ctaOffer}
+                  {status === "loading" ? formT.sending : t.ctaOffer}
                 </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="lg"
-                  className="h-12 w-full border-emerald-500/35 bg-emerald-950/15 text-sm text-white hover:border-emerald-400/50 md:h-[3.25rem] md:text-base"
-                  asChild
+              </form>
+
+              <div className="flex flex-col gap-4 sm:gap-5">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="h-10 w-full border-emerald-500/35 bg-emerald-950/15 text-xs text-white hover:border-emerald-400/50 sm:h-11 sm:text-sm"
+                asChild
+              >
+                <a
+                  href={getRemoteCoursePromoWhatsAppLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    if (isCourseDistanceRoute(pathname)) {
+                      trackCourseDistanceWhatsAppContact();
+                    }
+                    markSeenAndClose();
+                  }}
                 >
-                  <a
-                    href={getRemoteCoursePromoWhatsAppLink()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => {
-                      if (isCourseDistanceRoute(pathname)) {
-                        trackCourseDistanceWhatsAppContact();
-                      }
-                      markSeenAndClose();
-                    }}
-                  >
-                    <WhatsAppIcon className="h-5 w-5 shrink-0 text-emerald-400" />
-                    {t.ctaWhatsApp}
-                  </a>
-                </Button>
-              </div>
+                  <WhatsAppIcon className="h-4 w-4 shrink-0 text-emerald-400" />
+                  {t.ctaWhatsApp}
+                </a>
+              </Button>
 
               <button
                 type="button"
                 onClick={markSeenAndClose}
-                className="mt-3 py-1 text-center text-xs text-white/40 transition hover:text-white/60 md:mt-3.5 md:text-sm"
+                className="py-1 text-center text-[11px] text-white/40 transition hover:text-white/60 sm:text-xs"
               >
                 {t.skip}
               </button>
-            </motion.div>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       ) : null}

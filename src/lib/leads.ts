@@ -108,9 +108,6 @@ export async function submitLead(payload: LeadPayload): Promise<{ ok: boolean; e
   }
 }
 
-export const POPUP_STORAGE_KEY = "mm_lead_popup_hide_until";
-export const POPUP_HIDE_MS = 1000 * 60 * 60 * 24 * 14;
-
 const EMPTY_VALUES = {
   nom: "",
   prenom: "",

@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CursorFollow from "@/components/CursorFollow";
 import RemoteCoursePromoModal from "@/components/cours-distance/RemoteCoursePromoModal";
-import LeadPopup from "@/components/forms/LeadPopup";
 import { SmoothScroll } from "@/providers/SmoothScroll";
 import { useLang } from "@/context/LanguageContext";
 
@@ -20,7 +19,6 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       {children}
       <Footer />
       <RemoteCoursePromoModal />
-      <LeadPopup />
     </div>
   );
 }
